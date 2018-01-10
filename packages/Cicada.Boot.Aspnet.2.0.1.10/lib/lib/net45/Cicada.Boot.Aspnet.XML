@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cicada.Boot.Aspnet</name>
+    </assembly>
+    <members>
+        <member name="T:Cicada.Boot.Aspnet.WebApplication">
+            <summary>
+            web应用程序入口
+            </summary>
+        </member>
+        <member name="M:Cicada.Boot.Aspnet.WebApplication.Run">
+            <summary>
+            启动
+            </summary>
+        </member>
+    </members>
+</doc>

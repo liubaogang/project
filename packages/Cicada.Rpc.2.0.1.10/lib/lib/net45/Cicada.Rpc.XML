@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cicada.Rpc</name>
+    </assembly>
+    <members>
+        <member name="T:Cicada.Rpc.Server.IRpcServer">
+            <summary>
+            RPC服务器接口
+            </summary>
+        </member>
+        <member name="M:Cicada.Rpc.Server.IRpcServer.Run``1">
+            <summary>
+            运行
+            </summary>
+            <typeparam name="T">向外提供服务的接口类型</typeparam>
+        </member>
+        <member name="M:Cicada.Rpc.Server.IRpcServer.Close">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="M:Cicada.Rpc.ServiceCentre.IServicePublisher.Init(System.String,Cicada.Rpc.ServiceCentre.ConnectionFailProcessMode,System.String,System.String)">
+            <summary>
+            初始化
+            </summary>
+            <param name="respository">仓库地址</param>
+            <param name="mode">当连接失败时候的处理方式</param>
+            <param name="path">路径</param>
+            <param name="data">数据</param>
+        </member>
+        <member name="M:Cicada.Rpc.ServiceCentre.IServicePublisher.Publish">
+            <summary>
+            发布服务
+            </summary>
+        </member>
+        <member name="M:Cicada.Rpc.ServiceCentre.IServicePublisher.Cancel">
+            <summary>
+            取消发布
+            </summary>
+        </member>
+    </members>
+</doc>

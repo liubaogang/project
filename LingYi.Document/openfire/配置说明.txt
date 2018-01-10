@@ -1,0 +1,42 @@
+一、消息服务器属性配置
+
+#消息队列RabbitMq配置
+plugin.liubaogang.queueHost=10.100.105.142
+plugin.liubaogang.sendersQueueName=lingyi.setsavemessage
+plugin.liubaogang.receiveQueueName=lingyi.receivemessage
+
+
+
+#群组成员配置
+plugin.liubaogang.groupMembers=select memberUserId from test where GroupID=?
+plugin.liubaogang.groupMembersUrl=http://172.18.115.80:8001/api/ImBase/GetGroupMembers?GroupID=
+
+
+
+
+#离线消息存储Redis配置
+plugin.liubaogang.redisHost=10.100.103.142
+plugin.liubaogang.redisKeys=LingYi.Im:OfflineMsg
+
+
+
+#判断用户是否在线
+plugin.liubaogang.userOnLineUrl=http://127.0.0.1:9090/plugins/presence/status?jid=
+
+二、上传jar 包到指定目录下，存在则删除
+    1：fastjson-1.2.2.jar
+    2:jedis-2.9.0.jar
+    3:rabbitmq-client.jar
+    4:openfire.jar
+    
+    注意：目录位置（/opt/openfire/lib,具体位置以实际安装位置为准！）
+
+
+
+
+三、启动服务后再插件功能下上传插件
+    1：liubaogang1.jar (单聊、群聊及功能)
+    2: liubaogang2.jar (发送自定义IQ消息)
+    3: liubaogang3.jar (扩展外部版块发送消息功能)
+
+    注意：请先安装插件（在插件列表中找到 Presence Service 安装即可，并将启用匿名开关打开）

@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<message-process>
+
+  <!--单聊消息结构-->
+
+  <!--1:客户端发送消息-->
+  <message to="57ff1ac4592435206863d855@csxmpp.lingyi365.com" type="chat" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/pc" id="7db20d91-b1ae-4d00-8334-f127dc80c57d">
+    <body>ni hao?</body>
+    <bodyExtend>
+      <IP>127.0.0.1</IP>
+      <command>cmd:chat</command>
+      <version>1.0.0</version>
+      <clientVersion>10.0.0.523</clientVersion>
+      <deviceType>iphone 6</deviceType>
+    </bodyExtend>
+  </message>
+  <!--2:服务端第一次发送成功确认-->
+  <message to="57ff1ac4592435206863d855@csxmpp.lingyi365.com" type="chat" id="7db20d91-b1ae-4d00-8334-f127dc80c57d" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/pc" xmlns="jabber:client">
+    <body>ni hao?</body>
+    <bodyExtend>
+      <IP>127.0.0.1</IP>
+      <command>cmd:chat</command>
+      <version>1.0.0</version>
+      <clientVersion>10.0.0.523</clientVersion>
+      <deviceType>iphone 6</deviceType>
+      <datetime>2017-12-07T01:52:21.244Z</datetime>
+    </bodyExtend>
+  </message>
+  <!--3:服务端第二次收到消息确认-->
+  <message to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com" type="chat" id="7db20d91-b1ae-4d00-8334-f127dc80c57d" from="57ff1ac4592435206863d855@csxmpp.lingyi365.com" xmlns="jabber:client">
+    <body>ni hao?</body>
+    <bodyExtend>
+      <IP>127.0.0.1</IP>
+      <command>cmd:chat-arrive-receipt</command>
+      <version>1.0.0</version>
+      <clientVersion>10.0.0.523</clientVersion>
+      <deviceType>iphone 6</deviceType>
+      <datetime>2017-12-07T01:52:21.244Z</datetime>
+    </bodyExtend>
+  </message>
+  <!--4:客户端已读消息-->
+  <message to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com" type="chat" id="7db20d91-b1ae-4d00-8334-f127dc80c57d" from="57ff1ac4592435206863d855@csxmpp.lingyi365.com/pc" xmlns="jabber:client">
+    <body >ni hao?</body>
+    <bodyExtend>
+      <IP>127.0.0.1</IP>
+      <command>cmd:chat-viewed-receipt</command>
+      <version>1.0.0</version>
+      <clientVersion>10.0.0.523</clientVersion>
+      <deviceType>iphone 6</deviceType>
+      <datetime>2017-12-07T01:52:21.244Z</datetime>
+    </bodyExtend>
+  </message>
+
+
+  <!--群消息结构-->
+
+
+  <!--1:客户端发送消息-->
+  <message to="8db20d91-b1ae-3d00-8334-f127dc80c57d@csxmpp.lingyi365.com" type="chat" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/pc" id="7db20d91-b1ae-4d00-8334-f127dc80c57d">
+    <body>ni hao?</body>
+    <bodyExtend>
+      <IP>127.0.0.1</IP>
+      <command>cmd:groupchat</command>
+      <version>1.0.0</version>
+      <clientVersion>10.0.0.523</clientVersion>
+      <deviceType>iphone 6</deviceType>
+    </bodyExtend>
+  </message>
+  <!--2:服务端第一次发送成功确认-->
+  <message to="8db20d91-b1ae-3d00-8334-f127dc80c57d@csxmpp.lingyi365.com" type="chat" id="7db20d91-b1ae-4d00-8334-f127dc80c57d" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/pc" xmlns="jabber:client">
+    <body>ni hao?</body>
+    <bodyExtend>
+      <IP>127.0.0.1</IP>
+      <command>cmd:groupchat</command>
+      <version>1.0.0</version>
+      <clientVersion>10.0.0.523</clientVersion>
+      <deviceType>iphone 6</deviceType>
+      <datetime>2017-12-07T01:52:21.244Z</datetime>
+    </bodyExtend>
+  </message>
+
+
+  <iq xmlns='jabber:client' type='error' id='3' to='57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs' from='57fefb8559242e1e8ca5b13f@testsearch'>
+    <query xmlns='http://jabber.org/protocol/disco#info'/>
+    <error xmlns='jabber:client' code='404' type='cancel'>
+      <remote-server-not-found xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    </error>
+  </iq>
+
+
+  <message id="主键ID" type="①normal|chat|groupchat|headline|error" to="toUserID@Domain/Resources" from="fromUserID@Domain/Resources">
+    <body>
+      <!--与bodyType对应消息体内容-->
+    </body>
+    <bodyExtend>
+      <command></command>
+      <bodyType>②text|image|audio|video|file|audiocall|videocall</bodyType>
+      <code>业务使用状态码</code>
+      <userName>大小姐</userName>
+      <deviceType></deviceType>
+      <userImage>http://172.18.112.106/group1/M00/00/02/rBJwaleygbqAdMrJAAGSOdF71KU922.png</userImage>
+    </bodyExtend>
+  </message>
+
+
+  <message to="57ff1ac4592435206863d855@ope.lingyi365.com" id="bca43e5b-edf6-430a-9be2-eb263f0e0fed" type="chat" from="57fefb8559242e1e8ca5b13f@ope.lingyi365.com/mobile">
+    <thread>eb680949-e0a9-4249-821e-f29c24913f58</thread>
+    <received xmlns="urn:xmpp:receipts" id="57ff1ac4592435206863d855@ope.lingyi365.com"/>
+    <bodyExtend>
+      <userName>9527-5566</userName>
+      <userImage>http://ope.lingyi365.com:5608/fs/group1/M00/04/35/rBJxwFf--4WASE5tAAGv5_Q3eGA806.png</userImage>
+      <userId>57fefb8559242e1e8ca5b13f</userId>
+      <bodyType>text</bodyType>
+      <code>10009</code>
+      <msgDate>2017-12-22 10:06:16.790</msgDate>
+      <msgLenght>0</msgLenght>
+      <msgType>chat</msgType>
+      <command>cmd:chat-viewed-receipt</command>
+      <version>1.0.0</version>
+      <deviceType>HUAWEI</deviceType>
+      <IP>172.18.111.177</IP>
+      <clientVersion>0.01.17122001</clientVersion>
+      <datetime>001513908375915</datetime>
+    </bodyExtend>
+  </message>
+
+  <message to="57ff1ac4592435206863d855@ope.lingyi365.com" id="cbd1d371-19b8-45f8-bdac-78c7bff3e475" type="chat" from="57fefb8559242e1e8ca5b13f@ope.lingyi365.com/mobile">
+    <body>5566-7788</body>
+    <bodyExtend>
+      <userName>9527-5566</userName>
+      <userImage>http://ope.lingyi365.com:5608/fs/group1/M00/04/35/rBJxwFf--4WASE5tAAGv5_Q3eGA806.png</userImage>
+      <userId>57fefb8559242e1e8ca5b13f</userId>
+      <bodyType>text</bodyType>
+      <code>10009</code>
+      <msgDate>2017-12-22 11:18:00.548</msgDate>
+      <msgLenght>0</msgLenght>
+      <msgType>chat</msgType>
+      <command>cmd:chat-viewed-receipt</command>
+      <version>1.0.0</version>
+      <deviceType>HUAWEI</deviceType>
+      <IP>172.18.111.177</IP>
+      <clientVersion>0.01.17122001</clientVersion>
+      <datetime>001513912679538</datetime>
+    </bodyExtend>
+  </message>
+
+
+  <message to="57ea36362368600fa8bffe58@0104.lingyi365.com/webKF" type="chat" id="a58a3df8-841c-4d4c-b60c-b22c000742c5" reto="admin/KF" refrom="5a3e0f2b2368600e846ee48c" from="admin@0104.lingyi365.com/KF-cecc0d4c" xmlns="jabber:client">
+    <body>认证要满18吗?</body>
+    <bodyExtend>
+      <msgid>a58a3df8-841c-4d4c-b60c-b22c000742c5</msgid>
+      <bodyType>text</bodyType>
+      <code>20000</code>
+      <msgDate>2017-12-23 16:35:05</msgDate>
+      <msgLenght>0</msgLenght>
+      <refrom>5a3e0f2b2368600e846ee48c</refrom>
+      <userId>5a3e0f2b2368600e846ee48c</userId>
+      <enterpriseId/>
+      <userName>安稳</userName>
+      <userImage>https://01.lingyi365.com/imapi/DefaultImg/sytb/default40.png</userImage>
+      <datetime>001514018105571</datetime>
+      <command>cmd:chat</command>
+    </bodyExtend>
+  </message>
+
+
+  <message to="57ea36362368600fa8bffe58@0104.lingyi365.com/webKF" type="chat" id="6a92609b-2152-46bd-aa2a-7a6675b5edd7" reto="admin/KF" refrom="5a3cfb5023686016142800e9" from="admin@0104.lingyi365.com/KF-709d3a0f" xmlns="jabber:client">
+    <body>在吗</body>
+    <bodyExtend>
+      <msgid>6a92609b-2152-46bd-aa2a-7a6675b5edd7</msgid>
+      <bodyType>text</bodyType>
+      <code>160</code>
+      <msgDate>2017-12-23 16:50:17</msgDate>
+      <msgLenght>0</msgLenght>
+      <refrom>5a3cfb5023686016142800e9</refrom>
+      <userId>5a3cfb5023686016142800e9</userId>
+      <enterpriseId>1</enterpriseId>
+      <userName>雨后的彩虹</userName>
+      <userImage>https://01.lingyi365.com/imapi/DefaultImg/sytb/default40.png</userImage>
+      <datetime>001514019018289</datetime>
+      <command>cmd:chat</command>
+    </bodyExtend>
+  </message>
+
+
+  <iq to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" type="get" id="4">
+    <customiq xmlns="urn:sharp.xmpp:customiq">
+      <iq type="get" to="customiq.csxmpp.lingyi365.com">
+        <query xmlns="customiq"/>
+      </iq>
+    </customiq>
+  </iq>
+
+  <iq to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" id="4" type="result">
+    <customiq xmlns="urn:sharp.xmpp:customiq">urn:sharp.xmpp:customiq</customiq>
+  </iq>
+
+</message-process>
+
+
+
+<iq to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" type="get" id="4">
+  <customiq xmlns="urn:sharp.xmpp:customiq">
+    <m type="get" to="111222@csxmpp.lingyi365.com">
+      <query xmlns="customiq"/>
+    </m>
+  </customiq>
+</iq>
+<iq to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" type="get" id="5">
+  <ping xmlns="urn:xmpp:ping"/>
+</iq>
+<iq to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" id="4" type="result">
+  <customiq xmlns="urn:sharp.xmpp:customiq">urn:sharp.xmpp:customiq</customiq>
+</iq>
+<iq to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" id="5" type="result"/>
+<iq to="csxmpp.lingyi365.com" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" id="275-2128" type="result"/>
+<iq to="csxmpp.lingyi365.com" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" id="442-2129" type="result"/>
+<iq to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" type="get" id="6">
+  <ping xmlns="urn:xmpp:ping"/>
+</iq>
+<iq to="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" from="57fefb8559242e1e8ca5b13f@csxmpp.lingyi365.com/cs" id="6" type="result"/>
+
+
+
+
+
+
+
+

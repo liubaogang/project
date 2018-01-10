@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cicada.Boot.Aspnet.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Cicada.Boot.Aspnet.WebApi.ActionTrackAttribute.OnActionExecutedAsync(System.Web.Http.Filters.HttpActionExecutedContext,System.Threading.CancellationToken)">
+            <summary>
+            在请求执行完后 记录请求的数据以及返回数据
+            </summary>
+            <param name="actionExecutedContext"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cicada.Boot.Aspnet.WebApi.ApiControllerExtensions.UploadFile(System.Web.Http.ApiController,System.String)">
+            <summary>
+            上传文件
+            </summary>
+            <param name="apiController">控制器</param>
+            <param name="allowExtensions">允许的文件扩展名，多个使用“|”隔开。如.jpg|.gif</param>
+            <returns>文件名</returns>
+        </member>
+        <member name="T:Cicada.Boot.Aspnet.WebApi.FileUpload.IFileUpload">
+            <summary>
+            文件上传
+            </summary>
+        </member>
+        <member name="M:Cicada.Boot.Aspnet.WebApi.FileUpload.IFileUpload.UploadFile(System.Web.Http.ApiController,System.String)">
+            <summary>
+            上传文件
+            </summary>
+            <param name="apiController">控制器</param>
+            <param name="allowExtensions">允许的文件扩展名，多个使用“|”隔开。如.jpg|.gif</param>
+            <returns>文件名</returns>
+        </member>
+    </members>
+</doc>

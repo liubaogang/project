@@ -1,0 +1,618 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cicada.FileSystem</name>
+    </assembly>
+    <members>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Common.FDFSHeader.#ctor(System.Int64,System.Byte,System.Byte)">
+            <summary>
+                Constructor
+            </summary>
+            <param name="length"></param>
+            <param name="command"></param>
+            <param name="status"></param>
+        </member>
+        <member name="P:Cicada.FileSystem.FastDfsDriver.Common.FDFSHeader.Length">
+            <summary>
+                Pachage Length
+            </summary>
+        </member>
+        <member name="P:Cicada.FileSystem.FastDfsDriver.Common.FDFSHeader.Command">
+            <summary>
+                Command
+            </summary>
+        </member>
+        <member name="P:Cicada.FileSystem.FastDfsDriver.Common.FDFSHeader.Status">
+            <summary>
+                Status
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Common.Pool">
+            <summary>
+            池
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Common.Util.LongToBuffer(System.Int64)">
+            <summary>
+                Convert Long to byte[]
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Common.Util.BufferToLong(System.Byte[],System.Int32)">
+            <summary>
+                Convert byte[] to Long
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Common.Util.GetToken(System.String,System.Int32,System.String)">
+            <summary>
+                get token for file URL
+            </summary>
+            <param name="fileId">file_id the file id return by FastDFS server</param>
+            <param name="ts">ts unix timestamp, unit: second</param>
+            <param name="secretKey">secret_key the secret key</param>
+            <returns>token string</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Common.Util.Md5(System.Byte[])">
+            <summary>
+                md5 function
+            </summary>
+            <param name="source">source the input buffer </param>
+            <returns>md5 string </returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.ConnectionManager">
+            <summary>
+            链接管理池
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.FastDFSClient">
+            <summary>
+            FastDFSClient
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.GetStorageNode(System.String)">
+            <summary>
+            获取存储节点
+            </summary>
+            <param name="groupName">组名</param>
+            <returns>存储节点实体类</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.UploadFile(Cicada.FileSystem.FastDfsDriver.Common.StorageNode,System.Byte[],System.String)">
+            <summary>
+            上传文件
+            </summary>
+            <param name="storageNode">GetStorageNode方法返回的存储节点</param>
+            <param name="contentByte">文件内容</param>
+            <param name="fileExt">文件扩展名(注意:不包含".")</param>
+            <returns>文件名</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.UploadSlaveFile(System.String,System.Byte[],System.String,System.String,System.String)">
+            <summary>
+            上传从文件
+            </summary>
+            <param name="groupName"></param>
+            <param name="contentByte">文件内容</param>
+            <param name="masterFilename">主文件名</param>
+            <param name="prefixName">从文件后缀</param>
+            <param name="fileExt">文件扩展名(注意:不包含".")</param>
+            <returns>文件名</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.UploadAppenderFile(Cicada.FileSystem.FastDfsDriver.Common.StorageNode,System.Byte[],System.String)">
+            <summary>
+            上传可以Append的文件
+            </summary>
+            <param name="storageNode">GetStorageNode方法返回的存储节点</param>
+            <param name="contentByte">文件内容</param>
+            <param name="fileExt">文件扩展名(注意:不包含".")</param>
+            <returns>文件名</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.AppendFile(System.String,System.String,System.Byte[])">
+            <summary>
+            附加文件
+            </summary>
+            <param name="groupName">组名</param>
+            <param name="fileName">文件名</param>
+            <param name="contentByte">文件内容</param>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.RemoveFile(System.String,System.String)">
+            <summary>
+            删除文件
+            </summary>
+            <param name="groupName">组名</param>
+            <param name="fileName">文件名</param>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.DownloadFile(Cicada.FileSystem.FastDfsDriver.Common.StorageNode,System.String)">
+            <summary>
+            下载文件
+            </summary>
+            <param name="storageNode">GetStorageNode方法返回的存储节点</param>
+            <param name="fileName">文件名</param>
+            <returns>文件内容</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.DownloadFile(Cicada.FileSystem.FastDfsDriver.Common.StorageNode,System.String,System.Int64,System.Int64)">
+            <summary>
+            增量下载文件
+            </summary>
+            <param name="storageNode">GetStorageNode方法返回的存储节点</param>
+            <param name="fileName">文件名</param>
+            <param name="offset">从文件起始点的偏移量</param>
+            <param name="length">要读取的字节数</param>
+            <returns>文件内容</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.FastDFSClient.GetFileInfo(Cicada.FileSystem.FastDfsDriver.Common.StorageNode,System.String)">
+            <summary>
+            获取文件信息
+            </summary>
+            <param name="storageNode">GetStorageNode方法返回的存储节点</param>
+            <param name="fileName">文件名</param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.APPEND_FILE">
+            <summary>
+                append file to storage server
+                Reqeust
+                Cmd: STORAGE_PROTO_CMD_APPEND_FILE 24
+                Body:
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: file name length
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: append file body length
+                @ file name
+                @ append body
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Storage.APPEND_FILE.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,IPEndPoint    IPEndPoint-->the storage IPEndPoint
+                2,string        FileName
+                3,byte[]        File bytes
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.DELETE_FILE">
+            <summary>
+                delete file from storage server
+                Reqeust
+                Cmd: STORAGE_PROTO_CMD_DELETE_FILE 12
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Storage.DELETE_FILE.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,IPEndPoint    IPEndPoint-->the storage IPEndPoint
+                2,string groupName
+                3,string fileName
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.DOWNLOAD_FILE">
+            <summary>
+                download/fetch file from storage server
+                Reqeust
+                Cmd: STORAGE_PROTO_CMD_DOWNLOAD_FILE 14
+                Body:
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: file offset
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: download file bytes
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+                @ file content
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Storage.DOWNLOAD_FILE.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,IPEndPoint    IPEndPoint-->the storage IPEndPoint
+                2,long offset-->file offset
+                3,long byteSize -->download file bytes
+                4,string groupName
+                5,string fileName
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.GET_METADATA">
+            <summary>
+                get metat data from storage server
+                Reqeust
+                Cmd: STORAGE_PROTO_CMD_GET_METADATA 15
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+                @ meta data buff, each meta data seperated by \x01, name and value seperated by \x02
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.QUERY_FILE_INFO">
+            <summary>
+                query file info from storage server
+                Reqeust
+                Cmd: STORAGE_PROTO_CMD_QUERY_FILE_INFO 22
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: file size
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: file create timestamp
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: file CRC32 signature
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Storage.QUERY_FILE_INFO.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,IPEndPoint    IPEndPoint-->the storage IPEndPoint
+                2,string fileName
+                3,string fileBytes
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.SET_METADATA">
+            <summary>
+                set metat data from storage server
+                Reqeust
+                Cmd: STORAGE_PROTO_CMD_SET_METADATA 13
+                Body:
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: filename length
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: meta data size
+                @ 1 bytes: operation flag,
+                'O' for overwrite all old metadata
+                'M' for merge, insert when the meta item not exist, otherwise update it
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+                @ meta data bytes: each meta data seperated by \x01,
+                name and value seperated by \x02
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.UPLOAD_APPEND_FILE">
+            <summary>
+                upload file to storage server
+                Reqeust
+                Cmd: UPLOAD_APPEND_FILE 23
+                Body:
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: filename size
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: file bytes size
+                @ filename
+                @ file bytes: file content
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Storage.UPLOAD_APPEND_FILE.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,IPEndPoint    IPEndPoint-->the storage IPEndPoint
+                2,Byte          StorePathIndex
+                3,long          FileSize
+                4,string        File Ext
+                5,byte[FileSize]    File Content
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.UPLOAD_FILE">
+            <summary>
+                upload file to storage server
+                Reqeust
+                Cmd: STORAGE_PROTO_CMD_UPLOAD_FILE 11
+                Body:
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: filename size
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: file bytes size
+                @ filename
+                @ file bytes: file content
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Storage.UPLOAD_FILE.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,IPEndPoint    IPEndPoint-->the storage IPEndPoint
+                2,Byte          StorePathIndex
+                3,long          FileSize
+                4,string        File Ext
+                5,byte[FileSize]    File Content
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Storage.UPLOAD_SLAVE_FILE">
+            <summary>
+                upload slave file to storage server
+                Reqeust
+                Cmd: STORAGE_PROTO_CMD_UPLOAD_SLAVE_FILE 21
+                Body:
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: master filename length
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: file size
+                @ FDFS_FILE_PREFIX_MAX_LEN bytes: filename prefix
+                @ FDFS_FILE_EXT_NAME_MAX_LEN bytes: file ext name, do not include dot (.)
+                @ master filename bytes: master filename
+                @ file size bytes: file content
+                Response
+                Cmd: STORAGE_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Storage.UPLOAD_SLAVE_FILE.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,IPEndPoint    IPEndPoint-->the storage IPEndPoint
+                2,Byte          StorePathIndex
+                3,long          FileSize
+                4,string        File Ext
+                5,byte[FileSize]    File Content
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.LIST_ALL_GROUPS">
+            <summary>
+            list all groups
+            
+            Reqeust 
+                Cmd: TRACKER_PROTO_CMD_SERVER_LIST_ALL_GROUPS 91
+                Body:
+                
+            Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN+1 bytes: group name
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: free disk storage in MB
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server count
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server http port
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: active server count
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: current write server index
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: store path count on storage server
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: subdir count per path on storage server
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.LIST_ONE_GROUP">
+            <summary>
+            list one groups
+            
+            Reqeust 
+                Cmd: TRACKER_PROTO_CMD_SERVER_LIST_ONE_GROUP 90
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: the group name to query
+            Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN+1 bytes: group name
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: free disk storage in MB
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server count
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server http port
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: active server count
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: current write server index
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: store path count on storage server
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: subdir count per path on storage server
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Cicada.FileSystem.FastDfsDriver.Tracker.LIST_STORAGE" -->
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_FETCH_ALL">
+            <summary>
+            query all storage servers to download the file
+            
+            Reqeust 
+                Cmd: TRACKER_PROTO_CMD_SERVICE_QUERY_FETCH_ALL 105
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+            Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ IP_ADDRESS_SIZE - 1 bytes:  storage server ip address (multi)
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port (multi)
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_FETCH_ONE">
+            <summary>
+                query which storage server to download the file
+                Reqeust
+                Cmd: TRACKER_PROTO_CMD_SERVICE_QUERY_FETCH_ONE 102
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ filename bytes: filename
+                Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ IP_ADDRESS_SIZE - 1 bytes:  storage server ip address
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_FETCH_ONE.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,string groupName
+                2,string fileName
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_STORE_WITHOUT_GROUP_ALL">
+            <summary>
+            query which storage server to store file
+            
+            Reqeust 
+                Cmd: TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITHOUT_GROUP_ALL 106
+                Body: 
+                
+            Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ IP_ADDRESS_SIZE - 1 bytes: storage server ip address (multi)
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port (multi)
+                @ 1 byte: store path index on the storage server
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_STORE_WITHOUT_GROUP_ONE">
+            <summary>
+            query which storage server to store file
+            
+            Reqeust 
+                Cmd: TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITHOUT_GROUP_ONE 101
+                Body: 
+                
+            Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ IP_ADDRESS_SIZE - 1 bytes: storage server ip address
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port
+                @ 1 byte: store path index on the storage server
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_STORE_WITH_GROUP_ALL">
+            <summary>
+            query which storage server to store file
+            
+            Reqeust 
+                Cmd: TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITH_GROUP_ALL 107
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+            Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ IP_ADDRESS_SIZE - 1 bytes: storage server ip address
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port
+                @ 1 byte: store path index on the storage server
+            </summary>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_STORE_WITH_GROUP_ONE">
+            <summary>
+            query which storage server to store file
+            
+            Reqeust 
+                Cmd: TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITH_GROUP_ONE 104
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+            Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body: 
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ IP_ADDRESS_SIZE - 1 bytes: storage server ip address
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port
+                @ 1 byte: store path index on the storage server
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_STORE_WITH_GROUP_ONE.GetRequest(System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="paramList">
+            1,string groupName-->the storage groupName
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_UPDATE">
+            <summary>
+                query which storage server to update the file
+                Reqeust
+                Cmd: TRACKER_PROTO_CMD_SERVICE_QUERY_UPDATE 103
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes:  group name
+                @ filename bytes: filename
+                Response
+                Cmd: TRACKER_PROTO_CMD_RESP
+                Status: 0 right other wrong
+                Body:
+                @ FDFS_GROUP_NAME_MAX_LEN bytes: group name
+                @ IP_ADDRESS_SIZE - 1 bytes: storage server ip address
+                @ FDFS_PROTO_PKG_LEN_SIZE bytes: storage server port
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.FastDfsDriver.Tracker.QUERY_UPDATE.GetRequest(System.Object[])">
+            <summary>
+            </summary>
+            <param name="paramList">
+                1,string groupName
+                2,string fileName
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:Cicada.FileSystem.FileSystemExtensions.GetAbsolutePath(Cicada.FileSystem.IFileSystem,System.String)">
+            <summary>
+            获取绝对路径。注意：调用此方法前先配置UrlPrefix
+            </summary>
+            <param name="fileName">文件名</param>
+            <returns>绝对路径</returns>
+        </member>
+        <member name="T:Cicada.FileSystem.IFileSystem">
+            <summary>
+            文件系统接口
+            </summary>
+        </member>
+        <member name="M:Cicada.FileSystem.IFileSystem.Upload(System.Byte[],System.String)">
+            <summary>
+            上传
+            </summary>
+            <param name="data">数据</param>
+            <param name="fileExt">文件扩展名</param>
+            <returns>文件名</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.IFileSystem.Download(System.String)">
+            <summary>
+            下载
+            </summary>
+            <param name="fileName">文件名</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:Cicada.FileSystem.IFileSystem.Remove(System.String)">
+            <summary>
+            删除
+            </summary>
+            <param name="fileName">文件名</param>
+        </member>
+    </members>
+</doc>

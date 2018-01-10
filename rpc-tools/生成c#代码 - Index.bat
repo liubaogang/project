@@ -1,0 +1,1 @@
+thrift -gen  csharp Index.thrift

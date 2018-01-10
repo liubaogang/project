@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cicada.Mq</name>
+    </assembly>
+    <members>
+        <member name="T:Cicada.Mq.IReceiver`1">
+            <summary>
+            消息队列接收方接口
+            </summary>
+            <typeparam name="T">消息类型</typeparam>
+        </member>
+        <member name="M:Cicada.Mq.IReceiver`1.Receive(`0)">
+            <summary>
+            接收消息
+            </summary>
+            <param name="message">消息内容</param>
+        </member>
+        <member name="T:Cicada.Mq.IReceiverManager">
+            <summary>
+             消息队列接收方管理器
+            </summary>
+        </member>
+        <member name="M:Cicada.Mq.IReceiverManager.Run">
+            <summary>
+            启动接收
+            </summary>
+        </member>
+        <member name="M:Cicada.Mq.IReceiverManager.Close">
+            <summary>
+            关闭接收
+            </summary>
+        </member>
+        <member name="T:Cicada.Mq.ISender">
+            <summary>
+            消息队列发送方接口
+            </summary>
+        </member>
+        <member name="M:Cicada.Mq.ISender.Send``1(System.String,``0)">
+            <summary>
+            发送消息
+            </summary>
+            <typeparam name="T">消息类型</typeparam>
+            <param name="channel">管道名称</param>
+            <param name="mesasge"></param>
+        </member>
+    </members>
+</doc>
