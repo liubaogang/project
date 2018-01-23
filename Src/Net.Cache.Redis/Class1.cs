@@ -8,5 +8,10 @@ namespace Net.Cache.Redis
 {
     public class Class1
     {
+        public bool isEnabled { get; set; } = true;
+        public int? getemlementCount(List<int> list)
+        {
+            return list?.Count();
+        }
     }
 }
