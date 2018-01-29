@@ -1,8 +1,7 @@
-﻿using System;
-using Net.Core;
-
-namespace Net.Unity
+﻿namespace Net
 {
+    using Net.Core;
+
     internal class RegisterType : IRegisterType
     {
         public void RegisterTypes(IContainer container)

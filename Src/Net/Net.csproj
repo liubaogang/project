@@ -74,13 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\LifeTime.cs" />
-    <Compile Include="Core\IConfiguration.cs" />
     <Compile Include="Core\IContainer.cs" />
     <Compile Include="Core\IModulesLoad.cs" />
     <Compile Include="Core\IRegisterType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unity\Container.cs" />
-    <Compile Include="Unity\RegisterType.cs" />
+    <Compile Include="Core\Container.cs" />
+    <Compile Include="RegisterType.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

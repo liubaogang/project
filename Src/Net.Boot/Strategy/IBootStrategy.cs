@@ -4,16 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Net.Core
+namespace Net.Boot.Strategy
 {
     /// <summary>
-    /// 模块加载
+    /// 启动策略
     /// </summary>
-    public interface IModulesLoad
+    public interface IBootStrategy
     {
-        /// <summary>
-        /// 配置模块
-        /// </summary>
-        void Execute();
+        void Run();
     }
 }

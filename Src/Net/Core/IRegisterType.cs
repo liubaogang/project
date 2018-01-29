@@ -1,5 +1,8 @@
 ﻿namespace Net.Core
 {
+    /// <summary>
+    /// 框架类型注册
+    /// </summary>
     public interface IRegisterType
     {
         /// <summary>

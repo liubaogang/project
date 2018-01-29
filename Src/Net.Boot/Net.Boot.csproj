@@ -41,7 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configs\ConfigsLoad.cs" />
+    <Compile Include="Configs\IConfigsLoad.cs" />
+    <Compile Include="Module\ModulesLoad.cs" />
+    <Compile Include="BootStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisterType.cs" />
+    <Compile Include="Strategy\IBootStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Net\Net.csproj">
@@ -49,6 +55,7 @@
       <Name>Net</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

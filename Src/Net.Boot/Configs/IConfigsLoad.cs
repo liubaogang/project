@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Net.Core
+namespace Net.Boot.Configs
 {
-    internal interface IConfiguration
+    /// <summary>
+    /// 记载配置
+    /// </summary>
+    public interface IConfigsLoad
     {
         bool Contains(string name);
 
