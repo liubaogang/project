@@ -1,7 +1,6 @@
-﻿using System;
-using Net.Core;
+﻿using Net.Base;
 using Net.Boot.Configs;
-using Net.Base;
+using Net.Core;
 
 namespace Net.Boot
 {
@@ -9,7 +8,7 @@ namespace Net.Boot
     {
         public void RegisterTypes(IContainer container)
         {
-            container.RegisterType<IConfigsLoad, ConfigsLoad>(LifeTime.Singleton);
+            container.RegisterType<IConfigsType, ConfigsType>(LifeTime.Singleton);
         }
     }
 }

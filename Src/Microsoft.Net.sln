@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.File.FastDFS", "Net.Fil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Cache", "Net.Cache\Net.Cache.csproj", "{840AC55C-59D4-4714-86F2-ED8A95B70960}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "测试案例", "测试案例", "{B12AF089-A0AC-413F-A99D-33B2571405DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Test", "Net.Test\Net.Test.csproj", "{874C41DE-A6F3-4E2B-840C-4A404AE5305E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,8 +79,15 @@ Global
 		{840AC55C-59D4-4714-86F2-ED8A95B70960}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{840AC55C-59D4-4714-86F2-ED8A95B70960}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{840AC55C-59D4-4714-86F2-ED8A95B70960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{874C41DE-A6F3-4E2B-840C-4A404AE5305E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{874C41DE-A6F3-4E2B-840C-4A404AE5305E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{874C41DE-A6F3-4E2B-840C-4A404AE5305E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{874C41DE-A6F3-4E2B-840C-4A404AE5305E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{874C41DE-A6F3-4E2B-840C-4A404AE5305E} = {B12AF089-A0AC-413F-A99D-33B2571405DF}
 	EndGlobalSection
 EndGlobal

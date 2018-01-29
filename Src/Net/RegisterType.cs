@@ -1,6 +1,6 @@
 ﻿namespace Net
 {
-    using Net.Core;
+    using Core;
 
     internal class RegisterType : IRegisterType
     {
