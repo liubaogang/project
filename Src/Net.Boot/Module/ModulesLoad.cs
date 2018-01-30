@@ -18,14 +18,18 @@ namespace Net.Boot.Module
             //ILog log = LogBuilder.Create("Cicada.Boot");
             object[] args = new object[] { source.Length };
             //log.Trace("自动加载模块单元，共发现【{0}】个", args);
-            foreach (IModuleType boot in (from impType in source.Where<Type>(new Func<Type, bool>(ModulesLoad.Where)).OrderBy<Type, int>(new Func<Type, int>(ModulesLoad.GetOrder)) select (IModuleType)ContainerSingleton.Instance.Resolve(impType)).ToArray<IModuleType>())
+            IConfigsType config = ContainerSingleton.Instance.Resolve<IConfigsType>();
+            foreach (IModuleType boot in (from impType in source.Where<Type>(new Func<Type, bool>(ModulesLoad.Where))
+                                                                .OrderBy<Type, int>(new Func<Type, int>(ModulesLoad.GetOrder))
+                                                                select (IModuleType)ContainerSingleton.Instance.Resolve(impType))
+                                                                .ToArray<IModuleType>())
             {
                 object[] objArray2 = new object[] 
                 {
                     boot.GetType().FullName
                 };
                 //log.Trace("加载模块,类型:{0}", objArray2);
-                boot.Execute(ContainerSingleton.Instance.Resolve<IConfigsType>());
+                boot.Execute(config);
             }
         }
 

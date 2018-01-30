@@ -46,17 +46,39 @@ namespace Net.Test
         }
     }
 
+    class server : Net.Boot.Service.IService
+    {
+        private readonly IConfigsType _config;
+        public server(IConfigsType config)
+        {
+            _config = config;
+        }
+        public void Start()
+        {
+            Console.WriteLine(_config.Get("Cicada.Boot.Service.Description"));
+        }
+
+        public void Stop()
+        { 
+        }
+    }
+
 
     class Program
     {
         static void Main(string[] args)
         {
-            Net.Boot._Application.Run();
+
+            byte[] aaa = new byte[62000000 + 4700000];
+
+
+            Net.Boot.Service.ServiceApplication.Run();
+            //Net.Boot._Application.Run();
 
             //var t= ContainerSingleton.Instance.Resolve<Itest>();
             //t.write("hello world");
 
-            ContainerSingleton.Instance.Resolve<mmmm>().test("hello word!");
+            //ContainerSingleton.Instance.Resolve<mmmm>().test("hello word!");
             //new mmmm().test();
 
             Console.ReadKey();

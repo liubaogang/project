@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Boot", "Net.Boot\Net.Bo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Boot.Service", "Net.Boot.Service\Net.Boot.Service.csproj", "{2BB5E0DA-230B-4C2E-B04B-A94D7FC312A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Boot.Aspnet", "Net.Boot.Aspnet\Net.Boot.Aspnet.csproj", "{14B7A2AE-9526-429D-9062-63B9CF0D69B7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Boot.Aspnet.Mvc", "Net.Boot.Aspnet.Mvc\Net.Boot.Aspnet.Mvc.csproj", "{31B9410B-9A99-4F9A-9DA4-64B2694A0AA4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Boot.Aspnet.Api", "Net.Boot.Aspnet.Api\Net.Boot.Aspnet.Api.csproj", "{9BF38AE8-B6D5-4B3D-BE75-DEB78A5EAD5F}"
@@ -28,6 +26,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "测试案例", "测试案例", "{B12AF089-A0AC-413F-A99D-33B2571405DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Test", "Net.Test\Net.Test.csproj", "{874C41DE-A6F3-4E2B-840C-4A404AE5305E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.TestApi", "Net.TestApi\Net.TestApi.csproj", "{53C9FB0B-95EC-40F7-98CB-EA43E13967AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,6 @@ Global
 		{2BB5E0DA-230B-4C2E-B04B-A94D7FC312A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BB5E0DA-230B-4C2E-B04B-A94D7FC312A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BB5E0DA-230B-4C2E-B04B-A94D7FC312A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14B7A2AE-9526-429D-9062-63B9CF0D69B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14B7A2AE-9526-429D-9062-63B9CF0D69B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14B7A2AE-9526-429D-9062-63B9CF0D69B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14B7A2AE-9526-429D-9062-63B9CF0D69B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31B9410B-9A99-4F9A-9DA4-64B2694A0AA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31B9410B-9A99-4F9A-9DA4-64B2694A0AA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31B9410B-9A99-4F9A-9DA4-64B2694A0AA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,11 +79,16 @@ Global
 		{874C41DE-A6F3-4E2B-840C-4A404AE5305E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{874C41DE-A6F3-4E2B-840C-4A404AE5305E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{874C41DE-A6F3-4E2B-840C-4A404AE5305E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C9FB0B-95EC-40F7-98CB-EA43E13967AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C9FB0B-95EC-40F7-98CB-EA43E13967AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C9FB0B-95EC-40F7-98CB-EA43E13967AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C9FB0B-95EC-40F7-98CB-EA43E13967AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{874C41DE-A6F3-4E2B-840C-4A404AE5305E} = {B12AF089-A0AC-413F-A99D-33B2571405DF}
+		{53C9FB0B-95EC-40F7-98CB-EA43E13967AB} = {B12AF089-A0AC-413F-A99D-33B2571405DF}
 	EndGlobalSection
 EndGlobal

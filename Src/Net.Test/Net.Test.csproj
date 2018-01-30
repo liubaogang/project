@@ -52,6 +52,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Net.Boot.Service\Net.Boot.Service.csproj">
+      <Project>{2bb5e0da-230b-4c2e-b04b-a94d7fc312a4}</Project>
+      <Name>Net.Boot.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Net.Boot\Net.Boot.csproj">
       <Project>{eab49292-3ef0-4884-b0a4-98b225cdf71d}</Project>
       <Name>Net.Boot</Name>
