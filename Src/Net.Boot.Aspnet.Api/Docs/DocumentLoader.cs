@@ -33,9 +33,13 @@
                     c.IgnoreObsoleteProperties();
                 }).EnableSwaggerUi(delegate (SwaggerUiConfig c)
                 {
+                    //************注   意*****************
+                    //1、两个js文件属性为嵌入资源
+                    //2、Net.Boot.Aspnet.Api为项目命名空间
+                    //3、Docs.Translator.js 为文件所在目录
                     Assembly assembly = base.GetType().Assembly;
-                    c.InjectJavaScript(assembly, "Cicada.Boot.Aspnet.WebApi.Doc.Content.translator.js");
-                    c.InjectJavaScript(assembly, "Cicada.Boot.Aspnet.WebApi.Doc.Content.cicadaAuth.js");
+                    c.InjectJavaScript(assembly, "Net.Boot.Aspnet.Api.Docs.Translator.js");
+                    c.InjectJavaScript(assembly, "Net.Boot.Aspnet.Api.Docs.AuthToken.js");
                 });
             }
             if (configurationDataRespository.Get(IsDefaultPageConfigName) == "true")
