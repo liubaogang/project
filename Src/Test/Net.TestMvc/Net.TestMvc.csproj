@@ -113,7 +113,9 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="microsoftnet.properties" />
+    <Content Include="microsoftnet.properties">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -131,6 +133,24 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Net.Boot.Aspnet.Mvc\Net.Boot.Aspnet.Mvc.csproj">
+      <Project>{31b9410b-9a99-4f9a-9da4-64b2694a0aa4}</Project>
+      <Name>Net.Boot.Aspnet.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Net.Boot\Net.Boot.csproj">
+      <Project>{eab49292-3ef0-4884-b0a4-98b225cdf71d}</Project>
+      <Name>Net.Boot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Net\Net.csproj">
+      <Project>{e3c4ea70-516b-4210-b748-11a0738ce484}</Project>
+      <Name>Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Net.TestData\Net.TestData.csproj">
+      <Project>{341865ec-0d78-428a-b824-420ff66f6ca6}</Project>
+      <Name>Net.TestData</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -95,7 +95,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="microsoftnet.properties" />
+    <Content Include="microsoftnet.properties">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -119,6 +121,10 @@
     <ProjectReference Include="..\..\Net\Net.csproj">
       <Project>{e3c4ea70-516b-4210-b748-11a0738ce484}</Project>
       <Name>Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Net.TestData\Net.TestData.csproj">
+      <Project>{341865ec-0d78-428a-b824-420ff66f6ca6}</Project>
+      <Name>Net.TestData</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

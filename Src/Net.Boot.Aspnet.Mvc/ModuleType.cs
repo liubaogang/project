@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using Net.Core;
     using Net.Boot.Aspnet.Mvc.Core;
+    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     internal class ModuleType : IModuleType
     {
@@ -21,7 +22,8 @@
                 GlobalFilters.Filters.Remove(filter);
             }
             GlobalFilters.Filters.Add(new MvcHandleErrorAttribute());
-            DependencyResolver.SetResolver((IDependencyResolver)new MvcDependencyResolver());
+            DependencyResolver.SetResolver(new MvcDependencyResolver());
+            DynamicModuleUtility.RegisterModule(typeof(MvcApplactionHttpModule));
         }
     }
 }

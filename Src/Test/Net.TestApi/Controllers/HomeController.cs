@@ -4,14 +4,21 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Net.TestData.Iserver;
 
 namespace Net.TestApi.Controllers
 {
     public class HomeController : ApiController
     {
+        private ITestData _test;
+        public HomeController(ITestData test)
+        {
+            _test = test;
+        }
         // GET: api/Home
         public IEnumerable<string> Get()
         {
+            string a = _test.GetTest1("hello world！");
             return new string[] { "value1", "value2" };
         }
 

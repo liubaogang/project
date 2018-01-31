@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Net.TestData.Iserver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,15 @@ namespace Net.TestMvc.Controllers
 {
     public class HomeController : Controller
     {
+        private ITestData _test;
+        public HomeController(ITestData test)
+        {
+            _test = test;
+        }
         // GET: Home
         public ActionResult Index()
         {
+            string a = _test.GetTest1("sdsdfsdsdd");
             return View();
         }
 
