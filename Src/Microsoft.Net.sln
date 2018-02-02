@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.TestMvc", "Test\Net.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.TestData", "Test\Net.TestData\Net.TestData.csproj", "{341865EC-0D78-428A-B824-420FF66F6CA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Test.Other", "Test\Net.Test.Other\Net.Test.Other.csproj", "{B86050AD-F78B-44AE-9495-64DC8CD14750}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{341865EC-0D78-428A-B824-420FF66F6CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{341865EC-0D78-428A-B824-420FF66F6CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{341865EC-0D78-428A-B824-420FF66F6CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B86050AD-F78B-44AE-9495-64DC8CD14750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B86050AD-F78B-44AE-9495-64DC8CD14750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B86050AD-F78B-44AE-9495-64DC8CD14750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B86050AD-F78B-44AE-9495-64DC8CD14750}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,5 +110,6 @@ Global
 		{2D33EE18-AFDB-4963-BDCE-5DF6C644C011} = {B12AF089-A0AC-413F-A99D-33B2571405DF}
 		{A01988BE-BBC7-4F55-9733-6784617FA5A7} = {B12AF089-A0AC-413F-A99D-33B2571405DF}
 		{341865EC-0D78-428A-B824-420FF66F6CA6} = {B12AF089-A0AC-413F-A99D-33B2571405DF}
+		{B86050AD-F78B-44AE-9495-64DC8CD14750} = {B12AF089-A0AC-413F-A99D-33B2571405DF}
 	EndGlobalSection
 EndGlobal

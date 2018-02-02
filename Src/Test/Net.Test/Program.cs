@@ -3,17 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Net.Test
 {
-
     interface Itest
     {
         void write(string t);
     }
-
-
+    
     class test : Itest
     {
         public void write(string t)
@@ -66,14 +65,22 @@ namespace Net.Test
 
     class Program
     {
+        static Semaphore sema = new Semaphore(5, 5);
+        const int cycleNum = 9;
         static void Main(string[] args)
         {
 
-            byte[] aaa = new byte[62000000 + 4700000];
+            for (int i = 0; i < cycleNum; i++)
+            {
+                Thread td = new Thread(new ParameterizedThreadStart(testFun));
+                td.Name = string.Format("编号{0}", i.ToString());
+                td.Start(td.Name);
+            }
+            Console.ReadKey();
 
 
             Net.Boot.Service.ServiceApplication.Run();
-            //Net.Boot._Application.Run();
+            
 
             //var t= ContainerSingleton.Instance.Resolve<Itest>();
             //t.write("hello world");
@@ -82,6 +89,15 @@ namespace Net.Test
             //new mmmm().test();
 
             Console.ReadKey();
+        }
+
+        static void testFun(object obj)
+        {
+            sema.WaitOne();
+            Console.WriteLine(obj.ToString() + "进洗手间：" + DateTime.Now.ToString());
+            Thread.Sleep(2000);
+            Console.WriteLine(obj.ToString() + "出洗手间：" + DateTime.Now.ToString());
+            sema.Release();
         }
     }
 }
