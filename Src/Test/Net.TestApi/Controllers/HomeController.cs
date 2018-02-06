@@ -18,14 +18,28 @@ namespace Net.TestApi.Controllers
         // GET: api/Home
         public IEnumerable<string> Get()
         {
-            string a = _test.GetTest1("hello world！");
             return new string[] { "value1", "value2" };
         }
 
+        [Route("v2.0/api/Home/Get/{id?}")]
         // GET: api/Home/5
         public string Get(int id)
         {
-            return "value";
+            return _test.GetTest1("hello world！");
+        }
+
+        [HttpPost]
+        [Route("v3.0/api/Home/Get")]        
+        public string Get(Dictionary<string,string> dic)
+        {
+            return _test.GetTest1("3.0=hello world！");
+        }
+
+        [HttpPost]
+        [Route("v4.0/api/Home/Get")]
+        public string Get1(Dictionary<string, string> dic)
+        {
+            return _test.GetTest1("4.0=hello world！");
         }
 
         // POST: api/Home

@@ -21,7 +21,7 @@ namespace Net.Test.Other
     {
         public string arg { get; set; }
 
-        public void GetUser()
+        public virtual void GetUser()
         {
             Console.WriteLine(arg);
         }
@@ -62,18 +62,29 @@ namespace Net.Test.Other
         }
     }
 
+    static class AAA
+    {
+        public static void ConAAA()
+        {
+
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
-        {
-            
+        { 
 
             var proxy = new ProxyGenerator();
 
             //方法一 注意 被代理的方法必须为虚方法
-            //var t= proxy.CreateClassProxy<Test>(new TestInterceptor());
+            //var t = proxy.CreateClassProxy<Test>(new TestInterceptor("2"));
+            //t.arg = 3.ToString();
+            //t.GetUser();
             //方法二
-            //var t= proxy.CreateInterfaceProxyWithTarget<ITest>(new Test(), new IInterceptor[] { new TestInterceptor() });
+            //var t = proxy.CreateInterfaceProxyWithTarget<ITest>(new Test(), new IInterceptor[] { new TestInterceptor("2") });
+            //t.arg = "3";
+            //t.GetUser();
             //方法三
             string arg = "处理中*****************************";
             var _type = Type.GetType("Net.Test.Other.ITest,Net.Test.Other", false);

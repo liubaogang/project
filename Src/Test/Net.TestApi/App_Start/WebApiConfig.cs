@@ -16,7 +16,7 @@ namespace Net.TestApi
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
+                routeTemplate: "v1.0/api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

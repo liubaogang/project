@@ -1,15 +1,58 @@
 ﻿namespace Net.Boot.Aspnet.Api.Core
 {
+    using Newtonsoft.Json;
     using System;
-    using System.Globalization;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Web;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
+    using System.Web.Http.ModelBinding;
 
     internal class WebApiTrackAttribute : ActionFilterAttribute
     {
         private const string ActionExecuteTimeKey = "Cicada.WebApiActionExecuteTimeKey";
+        public override void OnActionExecuting(HttpActionContext actionContext)
+        {
+            string ValidateErorInfo = string.Empty, DecryptText = string.Empty;
+            if (actionContext.ModelState.IsValid == false)
+            {
+                // 在响应体中返回验证错误
+                var errors = new Dictionary<string, IEnumerable<string>>();
+                foreach (KeyValuePair<string, ModelState> keyValue in actionContext.ModelState)
+                {
+                    errors[keyValue.Key] = keyValue.Value.Errors.Select(e => e.ErrorMessage);
+                }
+                ValidateErorInfo = "表单异常:" + JsonConvert.SerializeObject(errors);
+            }
+            string Authentication = HttpContext.Current.Request.Headers.Get("Authentication");
+        }
+        public override void OnActionExecuted(HttpActionExecutedContext actionContext)
+        {
+            if (null != actionContext.Response)
+            {
+                if (actionContext.Response.StatusCode == HttpStatusCode.OK)
+                {
+                    var hadersType = actionContext.Response.Content.Headers.ToString();
+                    if (!(hadersType.ToLower().IndexOf("application/octet-stream") >= 0))
+                    {
+                        actionContext.Response =
+                        actionContext.Request.CreateResponse(HttpStatusCode.OK, new
+                        {
+                            Data = actionContext.ActionContext.Response.Content.ReadAsAsync<object>().Result,
+                            Status = 200,
+                            Message = "成功加载数据"
+                        });
+                    }
+                }
+            }
+            base.OnActionExecuted(actionContext);
+        }
+
         public override Task OnActionExecutedAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
         {
             object obj2;

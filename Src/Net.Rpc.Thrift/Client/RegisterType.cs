@@ -1,4 +1,4 @@
-﻿namespace Net.Rpc.Thrift
+﻿namespace Net.Rpc.Thrift.Client
 {
     using Base;
     using Core;
