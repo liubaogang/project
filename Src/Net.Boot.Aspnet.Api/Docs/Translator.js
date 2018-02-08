@@ -16,6 +16,7 @@
 window.SwaggerTranslator = {
 
     _words: {
+        "swagger": "灵铱科技",
         "Warning: Deprecated": "警告：已过时",
         "Implementation Notes": "实现备注",
         "Response Class": "响应类",
@@ -68,7 +69,6 @@ window.SwaggerTranslator = {
 
     translate: function () {
         var $this = this;
-
         $("*").each(function () {
 
             var html = $(this).html();
@@ -102,6 +102,18 @@ window.SwaggerTranslator = {
                     $(this).attr('title', newTitle);
                     return;
                 }
+            }
+
+            var logo = $(this).attr('id');
+
+            if (logo != undefined) {
+                var newlogo = $this._words[$.trim(logo)];
+
+                if (newlogo !== undefined) {
+                    $(this).text(newlogo);
+                    return;
+                }
+
             }
         });
     },
