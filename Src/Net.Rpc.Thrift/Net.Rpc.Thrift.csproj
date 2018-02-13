@@ -44,8 +44,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\Interceptor.cs" />
+    <Compile Include="Client\IThriftPools.cs" />
     <Compile Include="Client\ModuleType.cs" />
     <Compile Include="Client\RegisterType.cs" />
+    <Compile Include="Client\ThriftClient.cs" />
+    <Compile Include="Client\ThriftPools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\IThriftServer.cs" />
     <Compile Include="Server\RegisterType.cs" />
