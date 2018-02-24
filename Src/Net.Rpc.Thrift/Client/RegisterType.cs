@@ -6,7 +6,7 @@
     {
         public void RegisterTypes(IContainer container)
         {
-
+            container.RegisterType<IThriftPools, ThriftPools>(LifeTime.PerResolve);
         }
     }
 }

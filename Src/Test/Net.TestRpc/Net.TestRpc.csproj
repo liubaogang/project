@@ -49,10 +49,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
-    <Compile Include="Address.cs" />
-    <Compile Include="Customer.cs" />
+    <Compile Include="thrift\Address.cs" />
+    <Compile Include="thrift\Customer.cs" />
     <Compile Include="TestServer.cs" />
-    <Compile Include="ThriftCustomerService.cs" />
+    <Compile Include="thrift\ThriftCustomerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,9 +79,7 @@
       <Name>Net</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="thrift\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

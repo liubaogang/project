@@ -10,7 +10,8 @@ namespace Net.TestRpc
     {
         public int Add(Customer customer)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("我被调用了！");
+            return 5;
         }
 
         public Customer Get(int id)

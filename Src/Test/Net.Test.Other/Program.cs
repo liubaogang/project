@@ -2,6 +2,7 @@
 using Net.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace Net.Test.Other
         {
             _arg = arg;
         }
-        public  void Intercept(IInvocation invocation)
+        public void Intercept(IInvocation invocation)
         {
             //invocation.SetArgumentValue(0, _arg);
             Console.WriteLine("===========处理前");
@@ -70,10 +71,68 @@ namespace Net.Test.Other
         }
     }
 
+
+    class kkkk
+    {
+        public static string test()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    return "";
+                }
+                catch
+                {
+                    if (i == (10 - 1))
+                    {
+                        throw;
+                    }
+                }
+            }
+            return "";
+        }
+    }
+
+    class testusing : IDisposable
+    {
+         
+        public void Dispose()
+        {
+            Console.WriteLine("执行了-Dispose");
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
-        { 
+        {
+
+            using (var tsd = new testusing())
+            {
+                Console.WriteLine("执行方法了=====");
+            }
+
+                kkkk.test();
+            //Process p = new Process();
+            //p.StartInfo.FileName = "cmd.exe";//设置启动的应用程序  
+            //p.StartInfo.UseShellExecute = false;//禁止使用操作系统外壳程序启动进程  
+            //p.StartInfo.RedirectStandardInput = true;//应用程序的输入从流中读取  
+            //p.StartInfo.RedirectStandardOutput = true;//应用程序的输出写入流中  
+            //p.StartInfo.RedirectStandardError = true;//将错误信息写入流  
+            //p.StartInfo.CreateNoWindow = true;//是否在新窗口中启动进程  
+            //p.Start();
+            ////p.StandardInput.WriteLine(@"netstat -a -n>c:\port.txt");//将字符串写入文本流  
+            ////p.StandardInput.WriteLine(@"netstat -a -n");
+
+            //p.StandardInput.WriteLine(@"ping 172.18.104.120 -t");
+            //string str;
+            //while ((str = p.StandardOutput.ReadLine()) != null)
+            //{
+            //    Console.WriteLine(str);
+            //}
+
+            //Console.ReadKey();
 
             var proxy = new ProxyGenerator();
 
