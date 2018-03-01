@@ -38,6 +38,7 @@ namespace Net.TestHprose.Server
             HproseClassManager.Register(typeof(User), "User");
             HproseHttpListenerServer server = new HproseHttpListenerServer("http://localhost:2018/");
             server.ThreadCount = 5000;
+            
             TestService ts = new TestService();
             server.Add("Hello", ts, true);
             server.Add("SendUsers", ts);

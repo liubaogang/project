@@ -67,9 +67,10 @@ namespace Net.Test.Other
     {
         public static void ConAAA()
         {
-
         }
     }
+
+   
 
 
     class kkkk
@@ -107,7 +108,7 @@ namespace Net.Test.Other
     {
         static void Main(string[] args)
         {
-
+            CodeTimer
             using (var tsd = new testusing())
             {
                 Console.WriteLine("执行方法了=====");
