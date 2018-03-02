@@ -20,7 +20,7 @@ namespace Net.Rpc.Thrift.Client
             TCompactProtocol protocol = new TCompactProtocol(tSocket);
             object[] args = new object[] { protocol };
 
-            Client = (IDisposable)Activator.CreateInstance(Type.GetType("ThriftCustomerService+Iface,Net.TestRpc.Client", true), args);
+            Client = (IDisposable)Activator.CreateInstance(Type.GetType("ThriftCustomerService+Client"), args);
         }
         public IDisposable Client { get; set; }
 

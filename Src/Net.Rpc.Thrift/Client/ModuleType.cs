@@ -11,7 +11,7 @@
         {
             if (dictData.Get("Cicada.DI.AutoRegisterByProductName").IndexOf("Net.TestRpc.Client") >= 0)
             {
-                var _type = Type.GetType("ThriftCustomerService+Iface,Net.TestRpc.Client", false);
+                var _type = Type.GetType("ThriftCustomerService+Iface,Net.Rpc.Thrift", false);
                 ProxyGenerator generator = new ProxyGenerator();
                 ContainerSingleton.Instance.RegisterInstance(_type, generator.CreateInterfaceProxyWithoutTarget(_type, new Interceptor()));
             }

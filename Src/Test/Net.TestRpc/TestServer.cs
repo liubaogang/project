@@ -11,6 +11,7 @@ namespace Net.TestRpc
         public int Add(Customer customer)
         {
             Console.WriteLine("我被调用了！");
+            System.Threading.Thread.Sleep(1000);
             return 5;
         }
 

@@ -53,6 +53,9 @@
     <Compile Include="Client\IThriftPools.cs" />
     <Compile Include="Client\ModuleType.cs" />
     <Compile Include="Client\RegisterType.cs" />
+    <Compile Include="Client\test_tmp\Address.cs" />
+    <Compile Include="Client\test_tmp\Customer.cs" />
+    <Compile Include="Client\test_tmp\ThriftCustomerService.cs" />
     <Compile Include="Client\ThriftClient.cs" />
     <Compile Include="Client\ThriftPools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
