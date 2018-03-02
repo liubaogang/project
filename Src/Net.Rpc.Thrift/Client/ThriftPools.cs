@@ -44,12 +44,17 @@ namespace Net.Rpc.Thrift.Client
                     Console.WriteLine("当前空闲链接数为 {0}", RpcClientList.Count - 1);
                     return RpcClient;
                 }
-                return null;
+                else
+                {
+                    var RpcClient = CreateClient();
+                    RpcClient.IsUse = true;
+                    return RpcClient;
+                }
             }
         }
         
 
-        private void CreateClient()
+        private ThriftClient CreateClient()
         {
             if (RpcClients.Count == MaxCount)
                 throw new Exception("连接池数已经达到上限,请修改上限数！");
@@ -59,10 +64,12 @@ namespace Net.Rpc.Thrift.Client
                 new Action(socket.Open).TryDo(2, 500, new object[0]);
                 var thriftClient = new ThriftClient(socket);
                 RpcClients.Add(thriftClient);
+                return thriftClient;
             }
             catch(Exception ex)
             {
                 //日 志
+                return null;
             }
         }
     }
