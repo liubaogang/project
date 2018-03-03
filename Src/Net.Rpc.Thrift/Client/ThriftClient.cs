@@ -13,19 +13,15 @@ namespace Net.Rpc.Thrift.Client
     {
         public ThriftClient(TSocket tSocket)
         {
-            Transport = tSocket;
             Host = tSocket.Host;
             Port = tSocket.Port;
             IsUse = false;
             TCompactProtocol protocol = new TCompactProtocol(tSocket);
             object[] args = new object[] { protocol };
-
             Client = (IDisposable)Activator.CreateInstance(Type.GetType("ThriftCustomerService+Client"), args);
         }
         public IDisposable Client { get; set; }
-
         private bool _isUse { get; set; }
-        public TTransport Transport { get; set; }
         public int Port { get; set; }
         public string Host { get; set; }
         public bool IsUse
@@ -47,7 +43,7 @@ namespace Net.Rpc.Thrift.Client
 
         public void Dispose()
         {
-            this.IsUse = false;
+            IsUse = false;
         }
     }
 }

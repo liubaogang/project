@@ -76,11 +76,11 @@ namespace Net.TestRpc.Client
             
 
             var ts = new List<Thread>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1; i++)
             {
                 ts.Add(new Thread(() =>
                 {
-                    for (int j = 1; j < 5; j++)
+                    for (int j = 1; j < 2; j++)
                     {
                         try
                         {

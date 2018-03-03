@@ -40,14 +40,15 @@ namespace Net.Rpc.Thrift.Client
                 {
                     var RpcClient = RpcClientList[0];
                     RpcClient.IsUse = true;
-                    Console.WriteLine("正在使用第 {0} 个链接", RpcClients.IndexOf(RpcClient) + 1);
-                    Console.WriteLine("当前空闲链接数为 {0}", RpcClientList.Count - 1);
+                    Console.WriteLine("正在使用第{0}个链接", RpcClients.IndexOf(RpcClient) + 1);
+                    Console.WriteLine("当前空闲链接数为{0}", RpcClientList.Count - 1);
                     return RpcClient;
                 }
                 else
                 {
                     var RpcClient = CreateClient();
-                    RpcClient.IsUse = true;
+                    if (RpcClient != null)
+                        RpcClient.IsUse = true;
                     return RpcClient;
                 }
             }
@@ -56,11 +57,11 @@ namespace Net.Rpc.Thrift.Client
 
         private ThriftClient CreateClient()
         {
-            if (RpcClients.Count == MaxCount)
-                throw new Exception("连接池数已经达到上限,请修改上限数！");
             TSocket socket = new TSocket("127.0.0.1", 9527, 3000);
             try
             {
+                if (RpcClients.Count == MaxCount)
+                    throw new Exception("连接池数已经达上限,请修改上限数！");
                 new Action(socket.Open).TryDo(2, 500, new object[0]);
                 var thriftClient = new ThriftClient(socket);
                 RpcClients.Add(thriftClient);
