@@ -11,14 +11,15 @@ namespace Net.Rpc.Thrift.Client
 {
     internal class ThriftClient : IDisposable
     {
-        public ThriftClient(TSocket tSocket)
+        public ThriftClient(TSocket tSocket,Type clientType)
         {
             Host = tSocket.Host;
             Port = tSocket.Port;
             IsUse = false;
+            IsAvailable = true;
             TCompactProtocol protocol = new TCompactProtocol(tSocket);
             object[] args = new object[] { protocol };
-            Client = (IDisposable)Activator.CreateInstance(Type.GetType("ThriftCustomerService+Client"), args);
+            Client = (IDisposable)Activator.CreateInstance(clientType, args);
         }
         public IDisposable Client { get; set; }
         private bool _isUse { get; set; }
@@ -45,5 +46,6 @@ namespace Net.Rpc.Thrift.Client
         {
             IsUse = false;
         }
+        public bool IsAvailable { get; set; }
     }
 }

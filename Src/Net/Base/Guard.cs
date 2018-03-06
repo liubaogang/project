@@ -65,6 +65,11 @@ namespace Net.Base
             return method.TryDo(exceptionType, null, tryCount, interval, args);
         }
 
+        public static object TryDo(this Delegate method, Action<int> calcback, int tryCount, int interval, params object[] args)
+        {
+            return method.TryDo(null, calcback, tryCount, interval, args);
+        }
+
         public static object TryDo(this Delegate method, Type exceptionType, Action<int> calcback, int tryCount, int interval, params object[] args)
         {
             for (int i = 0; i < tryCount; i++)
@@ -77,7 +82,7 @@ namespace Net.Base
                 {
                     if (((exceptionType != null) && !(exception.GetType() == exceptionType)) && ((exception.InnerException == null) || !(exception.InnerException.GetType() == exceptionType)))
                     {
-                        throw;
+                        throw new Exception(exception.InnerException.Message);
                     }
                     if (calcback != null)
                     {
@@ -85,7 +90,7 @@ namespace Net.Base
                     }
                     if (i == (tryCount - 1))
                     {
-                        throw;
+                        throw new Exception(exception.InnerException.Message);
                     }
                     Thread.Sleep(interval);
                 }

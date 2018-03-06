@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Net.Rpc.Thrift.Endpoint;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace Net.Rpc.Thrift.Client
         int MaxCount { get; set; }
         int MinCount { get; set; }
         ThriftClient GetRpcClient();
+        void DataInit(ClientEndpointInfo endPointInfo);
     }
 }

@@ -27,7 +27,7 @@ namespace Net.TestRpc.Client
     {
         static void Main(string[] args)
         {
-
+            
             //object[] arg = new object[] { "aaaa" };
 
             //var Client =Activator.CreateInstance(Type.GetType("ThriftCustomerService+Client"), null);
@@ -69,18 +69,19 @@ namespace Net.TestRpc.Client
             */
             
             var dbiface = ContainerSingleton.Instance.Resolve<ThriftCustomerService.Iface>();
-            Able:
+            
             //int a= dbiface.Add(new Customer() {  Name="sdf", CustomerId=1});
             //Console.WriteLine("输出结果为："+a);
             //System.Threading.Thread.Sleep(5000);
             
 
             var ts = new List<Thread>();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 5000; i++)
             {
                 ts.Add(new Thread(() =>
                 {
-                    for (int j = 1; j < 2; j++)
+                Able:
+                    for (int j = 1; j < 10; j++)
                     {
                         try
                         {
@@ -91,16 +92,20 @@ namespace Net.TestRpc.Client
                         catch (Exception ex)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine(ex.Message);
+                            Console.WriteLine("*****************************************************"+ex.Message);
                             Console.ForegroundColor = ConsoleColor.White;
                         }
                     }
+                    goto Able;
                 }));
             }
             ts.ForEach(a => a.Start());
             ts.ForEach(a => a.Join());
+            //Console.WriteLine("请按任意键，继续！");
+            Console.ReadLine();
 
-            goto Able;
+
+
         }
     }
 }

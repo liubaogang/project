@@ -4,16 +4,28 @@
     using Net.Core;
     using System.Collections.Generic;
     using Castle.DynamicProxy;
+    using Endpoint;
 
     internal class ModuleType : IModuleType
     {
+        private readonly IClientEndpointConfig _clientEndpointConfig;
+        public ModuleType(IClientEndpointConfig clientEndpointConfig)
+        {
+            _clientEndpointConfig = clientEndpointConfig;
+        }
+
         public void Execute(IConfigsType dictData)
         {
-            if (dictData.Get("Cicada.DI.AutoRegisterByProductName").IndexOf("Net.TestRpc.Client") >= 0)
+            ClientEndpointInfo[] infoArray = _clientEndpointConfig.Load(dictData);
+            if (infoArray.Length != 0)
             {
-                var _type = Type.GetType("ThriftCustomerService+Iface,Net.Rpc.Thrift", false);
                 ProxyGenerator generator = new ProxyGenerator();
-                ContainerSingleton.Instance.RegisterInstance(_type, generator.CreateInterfaceProxyWithoutTarget(_type, new Interceptor()));
+                foreach (ClientEndpointInfo info in infoArray)
+                {
+                    IInterceptor interceptor = new Interceptor(info);
+                    var ProxyObject = generator.CreateInterfaceProxyWithoutTarget(info.ContractType, interceptor);
+                    ContainerSingleton.Instance.RegisterInstance(info.ContractType, ProxyObject);
+                }
             }
         }
     }

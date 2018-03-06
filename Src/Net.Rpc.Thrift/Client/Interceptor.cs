@@ -1,6 +1,7 @@
 ﻿using Castle.DynamicProxy;
 using Net.Base;
 using Net.Core;
+using Net.Rpc.Thrift.Endpoint;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,10 +13,13 @@ namespace Net.Rpc.Thrift.Client
 {
     internal class Interceptor : IInterceptor
     {
-        private readonly IThriftPools _clientSocket;
-        public Interceptor()
+        private readonly IThriftPools _thriftPools;
+        private readonly ClientEndpointInfo _clientEndpointInfo;
+        public Interceptor(ClientEndpointInfo clientEndpointInfo)
         {
-            _clientSocket = ContainerSingleton.Instance.Resolve<IThriftPools>();
+            _clientEndpointInfo = clientEndpointInfo;
+            _thriftPools = ContainerSingleton.Instance.Resolve<IThriftPools>();
+            _thriftPools.DataInit(clientEndpointInfo);
         }
         public void Intercept(IInvocation invocation)
         {
@@ -24,7 +28,7 @@ namespace Net.Rpc.Thrift.Client
             {
                 stopwatch.Start();
                 object[] args = new object[] { invocation };
-                new Action<IInvocation>(Execute).TryDo(5, 500, args);
+                new Action<IInvocation>(Execute).TryDo(3, 500, args);
             }
             finally
             {
@@ -34,9 +38,17 @@ namespace Net.Rpc.Thrift.Client
 
         private void Execute(IInvocation invocation)
         {
-            using (ThriftClient client = _clientSocket.GetRpcClient())
+            using (ThriftClient client = _thriftPools.GetRpcClient())
             {
-                invocation.ReturnValue = invocation.Method.Invoke(client.Client, invocation.Arguments);
+                try
+                {
+                    invocation.ReturnValue = invocation.Method.Invoke(client.Client, invocation.Arguments);
+                }
+                catch(Exception ex)
+                {
+                    client.IsAvailable = false;
+                    throw new Exception(ex.Message);
+                }
             }
         }
     }

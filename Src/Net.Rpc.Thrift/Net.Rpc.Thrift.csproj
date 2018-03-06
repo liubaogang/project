@@ -49,15 +49,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Endpoint\ClientContractFillData.cs" />
+    <Compile Include="Endpoint\ClientEndpointConfig.cs" />
+    <Compile Include="Endpoint\ClientEndpointInfo.cs" />
+    <Compile Include="Endpoint\ClientMaxPoolFillData.cs" />
+    <Compile Include="Endpoint\ClientServiceNameFillData.cs" />
+    <Compile Include="Endpoint\ClientDirectServerFillData.cs" />
+    <Compile Include="Endpoint\ClientRespositoryFillData.cs" />
+    <Compile Include="Endpoint\ClientFinderTypeFillData.cs" />
+    <Compile Include="Endpoint\IClientEndpointConfig.cs" />
     <Compile Include="Client\Interceptor.cs" />
     <Compile Include="Client\IThriftPools.cs" />
     <Compile Include="Client\ModuleType.cs" />
     <Compile Include="Client\RegisterType.cs" />
-    <Compile Include="Client\test_tmp\Address.cs" />
-    <Compile Include="Client\test_tmp\Customer.cs" />
-    <Compile Include="Client\test_tmp\ThriftCustomerService.cs" />
     <Compile Include="Client\ThriftClient.cs" />
     <Compile Include="Client\ThriftPools.cs" />
+    <Compile Include="Endpoint\IClientConfigurationFillData.cs" />
+    <Compile Include="Endpoint\IServerEndPointConfig.cs" />
+    <Compile Include="Endpoint\ServerEndPointConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\IThriftServer.cs" />
     <Compile Include="Server\RegisterType.cs" />
