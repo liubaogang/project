@@ -16,7 +16,7 @@ namespace Net.Rpc.Thrift.Client
         public int MinCount { get; set; }
         private object objectLock = new object();
         private ClientEndpointInfo _endPointInfo;
-        private  List<ThriftClient> RpcClients = new List<ThriftClient>();
+        private List<ThriftClient> RpcClients = new List<ThriftClient>();
         public void DataInit(ClientEndpointInfo endPointInfo)
         {
             MinCount = 5;
@@ -40,26 +40,6 @@ namespace Net.Rpc.Thrift.Client
                 }
             });
         }
-        //public ThriftPools()
-        //{
-        //    Task.Factory.StartNew(() =>
-        //    {
-        //        while (true)
-        //        {
-        //            //1:移除池中不可用链接
-        //            var _Availables = RpcClients.Where(w => w.IsAvailable == false);
-        //            foreach (var item in _Availables.ToList())
-        //                RpcClients.Remove(item);
-        //            //2:检查池中可用连接数
-        //            var _RpcClients = RpcClients.Where(w => w.IsUse == false && w.IsAvailable == true);
-        //            var _ObjArg = new object[] { RpcClients.Count, _RpcClients.Count() };
-        //            Console.WriteLine("共计连接数为 {0},空闲链接数为 {1}", _ObjArg);
-        //            if (_RpcClients.Count() < MinCount && RpcClients.Count < MaxCount)
-        //                CreateClient();
-        //            Thread.Sleep(500);
-        //        }
-        //    });
-        //}
         public ThriftClient GetRpcClient()
         {
             lock (objectLock)

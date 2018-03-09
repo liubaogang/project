@@ -76,12 +76,12 @@ namespace Net.TestRpc.Client
             
 
             var ts = new List<Thread>();
-            for (int i = 0; i < 5000; i++)
+            for (int i = 0; i < 1; i++)
             {
                 ts.Add(new Thread(() =>
                 {
-                Able:
-                    for (int j = 1; j < 10; j++)
+                //Able:
+                    for (int j = 0; j < 1; j++)
                     {
                         try
                         {
@@ -96,7 +96,7 @@ namespace Net.TestRpc.Client
                             Console.ForegroundColor = ConsoleColor.White;
                         }
                     }
-                    goto Able;
+                    //goto Able;
                 }));
             }
             ts.ForEach(a => a.Start());

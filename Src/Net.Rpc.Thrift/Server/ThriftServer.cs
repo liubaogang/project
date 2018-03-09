@@ -1,4 +1,5 @@
 ﻿using Net.Core;
+using Net.Rpc.Thrift.Endpoint;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +12,18 @@ using Thrift.Transport;
 
 namespace Net.Rpc.Thrift.Server
 {
-    public class ThriftServer : IThriftServer, IDisposable
+    internal class ThriftServer : IThriftServer, IDisposable
     {
         private bool _disposed;
         private TServer _server;
         private const int MaxThreadsDefault = 10000;
-        private const int ClientTimeoutDefault = 300000;
+        private const int ClientTimeoutDefault = Int32.MaxValue;
 
-        public ThriftServer()
+        private readonly IServerEndPointConfig _serverEndPointConfig;
+
+        public ThriftServer(IServerEndPointConfig serverEndPointConfig)
         {
-
+            _serverEndPointConfig = serverEndPointConfig;
         }
 
         public void Start<T>() where T : class
@@ -36,7 +39,7 @@ namespace Net.Rpc.Thrift.Server
                     string Info = "没有发现将要向外公开的服务接口,请确保您用的是Thrift生成的服务接口";
                     throw new InvalidOperationException(string.Format(Info, new object[0]));
                 }
-                TServerSocket socket = new TServerSocket(9527, ClientTimeoutDefault, false);
+                TServerSocket socket = new TServerSocket(_serverEndPointConfig.Port, ClientTimeoutDefault, false);
                 TProcessor processor = (TProcessor)ContainerSingleton.Instance.Resolve(processorType);
                 _server = new TThreadedServer(processor,socket, 
                     new TTransportFactory(), 
@@ -57,7 +60,10 @@ namespace Net.Rpc.Thrift.Server
                 }
             });
         }
-
+        ~ThriftServer()
+        {
+            Dispose(false);
+        }
         public void Stop()
         {
             if (_server != null)

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Net.Rpc.Thrift.Client
@@ -40,14 +41,24 @@ namespace Net.Rpc.Thrift.Client
         {
             using (ThriftClient client = _thriftPools.GetRpcClient())
             {
+                Stopwatch stopwatch = Stopwatch.StartNew();
                 try
                 {
-                    invocation.ReturnValue = invocation.Method.Invoke(client.Client, invocation.Arguments);
+                    stopwatch.Start();
+                    var result= invocation.Method.Invoke(client.Client, invocation.Arguments);
+                    invocation.ReturnValue = result;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     client.IsAvailable = false;
                     throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    stopwatch.Stop();
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("调用RPC方法用时{0}毫秒", stopwatch.ElapsedMilliseconds);
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }

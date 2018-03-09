@@ -10,8 +10,9 @@ namespace Net.TestRpc
     {
         public int Add(Customer customer)
         {
-            Console.WriteLine("我被调用了！" + DateTime.Now);
-            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine("我被调用了,刚刚开始！" + DateTime.Now);
+            System.Threading.Thread.Sleep(1 * 60 * 1000);
+            Console.WriteLine("我被调用了,刚刚结束！" + DateTime.Now);
             return 5;
         }
 
