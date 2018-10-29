@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ZooKeeperNetEx.Recipes</name>
+    </assembly>
+    <members>
+        <member name="T:org.apache.zookeeper.recipes.leader.LeaderElectionAware">
+            <summary>
+                An interface to be implemented by clients that want to receive election
+                events.
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.leader.LeaderElectionAware.onElectionEvent(org.apache.zookeeper.recipes.leader.ElectionEventType)">
+            <summary>
+                Called during each state transition. Current, low level events are provided
+                at the beginning and end of each state. For instance, START may be followed
+                by OFFER_START, OFFER_COMPLETE, DETERMINE_START, DETERMINE_COMPLETE, and so
+                on.
+            </summary>
+            <param name="eventType"> </param>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.leader.LeaderElectionSupport">
+            <summary>
+                <para>
+                    A leader election support library implementing the ZooKeeper election recipe.
+                </para>
+                <para>
+                    This support library is meant to simplify the construction of an exclusive
+                    leader system on top of Apache ZooKeeper. Any application that can become the
+                    leader (usually a process that provides a service, exclusively) would
+                    configure an instance of this class with their hostname, at least one
+                    listener (an implementation of <seealso cref="T:org.apache.zookeeper.recipes.leader.LeaderElectionAware" />), and either an
+                    instance of <seealso cref="F:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.ZooKeeper" /> or the proper connection information. Once
+                    configured, invoking <seealso cref="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.start" /> will cause the client to connect to
+                    ZooKeeper and create a leader offer. The library then determines if it has
+                    been elected the leader using the algorithm described below. The client
+                    application can follow all state transitions via the listener callback.
+                </para>
+                <para>
+                    Leader election algorithm
+                </para>
+                <para>
+                    The library starts in a START state. Through each state transition, a state
+                    start and a state complete event are sent to all listeners. When
+                    <seealso cref="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.start" /> is called, a leader offer is created in ZooKeeper. A leader
+                    offer is an ephemeral sequential node that indicates a process that can act
+                    as a leader for this service. A read of all leader offers is then performed.
+                    The offer with the lowest sequence number is said to be the leader. The
+                    process elected leader will transition to the leader state. All other
+                    processes will transition to a ready state. Internally, the library creates a
+                    ZooKeeper watch on the leader offer with the sequence ID of N - 1 (where N is
+                    the process's sequence ID). If that offer disappears due to a process
+                    failure, the watching process will run through the election determination
+                    process again to see if it should become the leader. Note that sequence ID
+                    may not be contiguous due to failed processes. A process may revoke its offer
+                    to be the leader at any time by calling <seealso cref="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.stop" />.
+                </para>
+                <para>
+                    Guarantees (not) Made and Caveats
+                </para>
+                <para>
+                    <ul>
+                        <li>
+                            It is possible for a (poorly implemented) process to create a leader
+                            offer, get the lowest sequence ID, but have something terrible occur where it
+                            maintains its connection to ZK (and thus its ephemeral leader offer node) but
+                            doesn't actually provide the service in question. It is up to the user to
+                            ensure any failure to become the leader - and whatever that means in the
+                            context of the user's application - results in a revocation of its leader
+                            offer (i.e. that <seealso cref="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.stop" /> is called).
+                        </li>
+                        <li>
+                            It is possible for ZK timeouts and retries to play a role in service
+                            liveliness. In other words, if process A has the lowest sequence ID but
+                            requires a few attempts to read the other leader offers' sequence IDs,
+                            election can seem slow. Users should apply timeouts during the determination
+                            process if they need to hit a specific SLA.
+                        </li>
+                        <li>
+                            The library makes a "best effort" to detect catastrophic failures of the
+                            process. It is possible that an unforeseen event results in (for instance) an
+                            unchecked exception that propagates passed normal error handling code. This
+                            normally doesn't matter as the same exception would almost certain destroy
+                            the entire process and thus the connection to ZK and the leader offer
+                            resulting in another round of leader determination.
+                        </li>
+                    </ul>
+                </para>
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.#ctor(org.apache.zookeeper.ZooKeeper,System.String,System.String)">
+            <summary>
+            Create a new instance of leader election recipe.
+            </summary>
+            <param name="zooKeeper">the zookeeper instance to use</param>
+            <param name="rootNodeName">the root node to perform elections on</param>
+            <param name="hostName">the name of the current host</param>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.getLeaderHostName">
+            <summary>
+                Fetch the (user supplied) hostname of the current leader. Note that by the
+                time this method returns, state could have changed so do not depend on this
+                to be strongly consistent. This method has to read all leader offers from
+                ZooKeeper to deterime who the leader is (i.e. there is no caching) so
+                consider the performance implications of frequent invocation. If there are
+                no leader offers this method returns null.
+            </summary>
+            <returns> hostname of the current leader </returns>
+            <exception cref="T:org.apache.zookeeper.KeeperException"> </exception>
+        </member>
+        <member name="F:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.RootNodeName">
+            <summary>
+                <para>
+                    Gets the ZooKeeper root node to use for this service.
+                </para>
+                <para>
+                    For instance, a root node of {@code /mycompany/myservice} would be the
+                    parent of all leader offers for this service. Obviously all processes that
+                    wish to contend for leader status need to use the same root node. Note: We
+                    assume this node already exists.
+                </para>
+            </summary>
+            <returns> a znode path </returns>
+        </member>
+        <member name="F:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.ZooKeeper">
+            <summary>
+                The <seealso cref="F:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.ZooKeeper" /> instance to use for all operations. Provided this
+                overrides any connectString or sessionTimeout set.
+            </summary>
+        </member>
+        <member name="F:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.HostName">
+            <summary>
+                The hostname of this process. Mostly used as a convenience for logging and
+                to respond to <seealso cref="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.getLeaderHostName" /> requests.
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.start">
+            <summary>
+                <para>
+                    Start the election process. This method will create a leader offer,
+                    determine its status, and either become the leader or become ready. If an
+                    instance of <seealso cref="F:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.ZooKeeper" /> has not yet been configured by the user, a
+                    new instance is created using the connectString and sessionTime specified.
+                </para>
+                <para>
+                    Any (anticipated) failures result in a failed event being sent to all
+                    listeners.
+                </para>
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.stop">
+            <summary>
+                Stops all election services, revokes any outstanding leader offers, and
+                disconnects from ZooKeeper.
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.addListener(org.apache.zookeeper.recipes.leader.LeaderElectionAware)">
+            <summary>
+                Adds {@code listener} to the list of listeners who will receive events.
+            </summary>
+            <param name="listener"> </param>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.removeListener(org.apache.zookeeper.recipes.leader.LeaderElectionAware)">
+            <summary>
+                Remove {@code listener} from the list of listeners who receive events.
+            </summary>
+            <param name="listener"> </param>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.ToString">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.leader.LeaderElectionSupport.State">
+            <summary>
+                The internal state of the election support service.
+            </summary>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.leader.ElectionEventType">
+            <summary>
+                The type of election event.
+            </summary>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.leader.LeaderOffer">
+            <summary>
+                A leader offer is a numeric id / path pair. The id is the sequential node id
+                assigned by ZooKeeper where as the path is the absolute path to the ZNode.
+            </summary>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.leader.LeaderOffer.IdComparator">
+            <summary>
+                Compare two instances of <seealso cref="T:org.apache.zookeeper.recipes.leader.LeaderOffer" /> using only the {code}id{code}
+                member.
+            </summary>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.lock.LockListener">
+            <summary>
+            This class has two methods which are call
+            back methods when a lock is acquired and 
+            when the lock is released.
+            
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.LockListener.lockAcquired">
+            <summary>
+            call back called when the lock 
+            is acquired
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.LockListener.lockReleased">
+            <summary>
+            call back called when the lock is 
+            released.
+            </summary>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.lock.ProtocolSupport">
+            <summary>
+            A base class for protocol implementations which provides a number of higher 
+            level helper methods for working with ZooKeeper along with retrying synchronous
+             operations if the connection to ZooKeeper closes such as 
+             <seealso cref="M:org.apache.zookeeper.recipes.lock.ProtocolSupport.retryOperation(org.apache.zookeeper.recipes.lock.ZooKeeperOperation)"/>
+            
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.ProtocolSupport.getZookeeper">
+            <summary>
+            return zookeeper client instance </summary>
+            <returns> zookeeper client instance </returns>
+        </member>
+        <member name="P:org.apache.zookeeper.recipes.lock.ProtocolSupport.Acl">
+            <summary>
+            return the acl its using </summary>
+            <returns> the acl. </returns>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.ProtocolSupport.retryOperation(org.apache.zookeeper.recipes.lock.ZooKeeperOperation)">
+            <summary>
+            Perform the given operation, retrying if the connection fails </summary>
+            <returns> object. it needs to be cast to the callee's expected 
+            return type. </returns>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.ProtocolSupport.ensurePathExists(System.String)">
+            <summary>
+            Ensures that the given path exists with no data, the current
+            ACL and no flags </summary>
+            <param name="path"> </param>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.ProtocolSupport.ensureExists(System.String,System.Byte[],System.Collections.Generic.List{org.apache.zookeeper.data.ACL},org.apache.zookeeper.CreateMode)">
+            <summary>
+            Ensures that the given path exists with the given data, ACL and flags </summary>
+            <param name="path"> </param>
+            <param name="data"></param>
+            <param name="acl"> </param>
+            <param name="flags"> </param>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.ProtocolSupport.retryDelay(System.Int32)">
+            <summary>
+            Performs a retry delay if this is not the first attempt </summary>
+            <param name="attemptCount"> the number of the attempts performed so far </param>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.lock.WriteLock">
+            <summary>
+            A <a href="package.html">protocol to implement an exclusive
+             write lock or to elect a leader</a>. <p/> You invoke <seealso cref="M:org.apache.zookeeper.recipes.lock.WriteLock.Lock"/> to 
+             start the process of grabbing the lock; you may get the lock then or it may be 
+             some time later. <p/> You can register a listener so that you are invoked 
+             when you get the lock; otherwise you can ask if you have the lock
+             by calling <seealso cref="P:org.apache.zookeeper.recipes.lock.WriteLock.Owner"/>
+            
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.WriteLock.#ctor(org.apache.zookeeper.ZooKeeper,System.String,System.Collections.Generic.List{org.apache.zookeeper.data.ACL})">
+            <summary>
+            zookeeper contructor for writelock </summary>
+            <param name="zookeeper"> zookeeper client instance </param>
+            <param name="dir"> the parent path you want to use for locking </param>
+            <param name="acls"> the acls that you want to use for all the paths, 
+            if null world read/write is used. </param>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.WriteLock.#ctor(org.apache.zookeeper.ZooKeeper,System.String,System.Collections.Generic.List{org.apache.zookeeper.data.ACL},org.apache.zookeeper.recipes.lock.LockListener)">
+            <summary>
+            zookeeper contructor for writelock with callback </summary>
+            <param name="zookeeper"> the zookeeper client instance </param>
+            <param name="dir"> the parent path you want to use for locking </param>
+            <param name="acl"> the acls that you want to use for all the paths </param>
+            <param name="callback"> the call back instance </param>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.WriteLock.setLockListener(org.apache.zookeeper.recipes.lock.LockListener)">
+            <summary>
+            return the current locklistener </summary>
+            <returns> the locklistener </returns>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.WriteLock.unlock">
+            <summary>
+            Removes the lock or associated znode if 
+            you no longer require the lock. this also 
+            removes your request in the queue for locking
+            in case you do not already hold the lock. </summary>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.lock.WriteLock.LockWatcher">
+            <summary>
+            the watcher called on  
+            getting watch while watching 
+            my predecessor
+            </summary>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.lock.WriteLock.LockZooKeeperOperation">
+            <summary>
+            a zoookeeper operation that is mainly responsible
+            for all the magic required for locking.
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.WriteLock.LockZooKeeperOperation.findPrefixInChildren(System.String,org.apache.zookeeper.ZooKeeper,System.String)">
+            <summary>
+            find if we have been created earler if not create our node
+            </summary>
+            <param name="prefix"> the prefix node </param>
+            <param name="zookeeper"> teh zookeeper client </param>
+            <param name="dir"> the dir paretn </param>
+            <exception cref="T:org.apache.zookeeper.KeeperException"> </exception>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.WriteLock.LockZooKeeperOperation.execute">
+            <summary>
+            the command that is run and retried for actually 
+            obtaining the lock </summary>
+            <returns> if the command was successful or not </returns>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.WriteLock.Lock">
+            <summary>
+            Attempts to acquire the exclusive write lock returning whether or not it was
+            acquired. Note that the exclusive lock may be acquired some time later after
+            this method has been invoked due to the current lock owner going away.
+            </summary>
+        </member>
+        <member name="P:org.apache.zookeeper.recipes.lock.WriteLock.Dir">
+            <summary>
+            return the parent dir for lock </summary>
+            <returns> the parent dir used for locks. </returns>
+        </member>
+        <member name="P:org.apache.zookeeper.recipes.lock.WriteLock.Owner">
+            <summary>
+            Returns true if this node is the owner of the
+             lock (or the leader)
+            </summary>
+        </member>
+        <member name="P:org.apache.zookeeper.recipes.lock.WriteLock.Id">
+            <summary>
+            return the id for this lock </summary>
+            <returns> the id for this lock </returns>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.lock.ZNodeName">
+            <summary>
+            Represents an ephemeral znode name which has an ordered sequence number
+            and can be sorted in order
+            
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.ZNodeName.CompareTo(org.apache.zookeeper.recipes.lock.ZNodeName)">
+            <summary>
+            Compare znodes based on their sequence number
+            </summary>
+            <param name="that">other znode to compare to</param>
+            <returns>
+            the difference between their sequence numbers: a positive value if this
+            znode has a larger sequence number, 0 if they have the same sequence number
+            or a negative number if this znode has a lower sequence number
+            </returns>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.lock.ZooKeeperOperation">
+            <summary>
+            A callback object which can be used for implementing retry-able operations in the 
+            <seealso cref="T:org.apache.zookeeper.recipes.lock.ProtocolSupport"/> class
+            
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.lock.ZooKeeperOperation.execute">
+            <summary>
+            Performs the operation - which may be involved multiple times if the connection
+            to ZooKeeper closes during this operation
+            </summary>
+            <returns> the result of the operation or null </returns>
+            <exception cref="T:org.apache.zookeeper.KeeperException"> </exception>
+        </member>
+        <member name="T:org.apache.zookeeper.recipes.queue.DistributedQueue">
+            
+            <summary>
+            A <a href="package.html">protocol to implement a distributed queue</a>.
+            </summary>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.queue.DistributedQueue.#ctor(org.apache.zookeeper.ZooKeeper,System.String,System.Collections.Generic.List{org.apache.zookeeper.data.ACL})">
+            <summary>
+            Create an instance of distributed queue recipe
+            </summary>
+            <param name="zookeeper">the zookeeper instance to use</param>
+            <param name="dir">the node to use for the queue</param>
+            <param name="acl">the acl for the queue</param>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.queue.DistributedQueue.getOrderedChildren(org.apache.zookeeper.Watcher)">
+            <summary>
+            Returns a Map of the children, ordered by id. </summary>
+            <param name="watcher"> optional watcher on getChildren() operation. </param>
+            <returns> map from id to child name for all children </returns>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.queue.DistributedQueue.element">
+            <summary>
+            Return the head of the queue without modifying the queue. </summary>
+            <returns> the data at the head of the queue. </returns>
+            <exception cref="T:System.InvalidOperationException"> </exception>
+            <exception cref="T:org.apache.zookeeper.KeeperException"> </exception>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.queue.DistributedQueue.remove">
+            <summary>
+            Attempts to remove the head of the queue and return it. </summary>
+            <returns> The former head of the queue </returns>
+            <exception cref="T:System.InvalidOperationException"> </exception>
+            <exception cref="T:org.apache.zookeeper.KeeperException"> </exception>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.queue.DistributedQueue.take">
+            <summary>
+            Removes the head of the queue and returns it, blocks until it succeeds. </summary>
+            <returns> The former head of the queue </returns>
+            <exception cref="T:System.InvalidOperationException"> </exception>
+            <exception cref="T:org.apache.zookeeper.KeeperException"> </exception>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.queue.DistributedQueue.offer(System.Byte[])">
+            <summary>
+            Inserts data into queue. </summary>
+            <param name="data"> </param>
+            <returns> true if data was successfully added </returns>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.queue.DistributedQueue.peek">
+            <summary>
+            Returns the data at the first element of the queue, or null if the queue is empty. </summary>
+            <returns> data at the first element of the queue, or null. </returns>
+            <exception cref="T:org.apache.zookeeper.KeeperException"> </exception>
+        </member>
+        <member name="M:org.apache.zookeeper.recipes.queue.DistributedQueue.poll">
+            <summary>
+            Attempts to remove the head of the queue and return it. Returns null if the queue is empty. </summary>
+            <returns> Head of the queue or null. </returns>
+            <exception cref="T:org.apache.zookeeper.KeeperException"> </exception>
+        </member>
+    </members>
+</doc>
