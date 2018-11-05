@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elasticsearch.Test", "Elast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{080AECD3-E572-4991-A9BF-D85E08F875D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangFire.Test", "HangFire.Test\HangFire.Test.csproj", "{081E6C26-CECC-4FB4-9316-4D36D1A1D6C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{080AECD3-E572-4991-A9BF-D85E08F875D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{080AECD3-E572-4991-A9BF-D85E08F875D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{080AECD3-E572-4991-A9BF-D85E08F875D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{081E6C26-CECC-4FB4-9316-4D36D1A1D6C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{081E6C26-CECC-4FB4-9316-4D36D1A1D6C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{081E6C26-CECC-4FB4-9316-4D36D1A1D6C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{081E6C26-CECC-4FB4-9316-4D36D1A1D6C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
