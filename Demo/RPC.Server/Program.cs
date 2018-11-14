@@ -39,6 +39,11 @@ namespace RPC.Server
                         int n = int.Parse(message);
                         Console.WriteLine(" [.] fib({0})", message);
                         response = fib(n).ToString();
+                        var responseBytes = Encoding.UTF8.GetBytes(response);
+                        channel.BasicPublish(exchange: "", routingKey: props.ReplyTo,
+                          basicProperties: replyProps, body: responseBytes);
+                        channel.BasicAck(deliveryTag: ea.DeliveryTag,
+                          multiple: false);
                     }
                     catch (Exception e)
                     {
@@ -47,13 +52,12 @@ namespace RPC.Server
                     }
                     finally
                     {
-                        var responseBytes = Encoding.UTF8.GetBytes(response);
-                        channel.BasicPublish(exchange: "", routingKey: props.ReplyTo,
-                          basicProperties: replyProps, body: responseBytes);
-                        channel.BasicAck(deliveryTag: ea.DeliveryTag,
-                          multiple: false);
-
-                        Console.WriteLine(DateTime.Now);
+                        Task.Factory.StartNew(()=>{
+                            System.Threading.Thread.Sleep(2000);
+                            channel.BasicPublish(exchange: "", routingKey: "test",
+                             basicProperties: replyProps, body: Encoding.UTF8.GetBytes("刘宝刚-test"));
+                            Console.WriteLine(Encoding.UTF8.GetString(body) + "另一个任务完成的：" + DateTime.Now);
+                        });
                     }
                 };
 
@@ -68,8 +72,8 @@ namespace RPC.Server
             {
                 return n;
             }
-
-            return fib(n - 1) + fib(n - 2);
+            return n * 3;
+            //return fib(n - 1) + fib(n - 2);
         }
     }
 }
