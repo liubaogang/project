@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rpc.Client", "Rpc.Client\Rp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPC.Server", "RPC.Server\RPC.Server.csproj", "{D3770AB9-20A3-4F3F-B7BE-A180F8F29DF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polly.Test", "Polly.Test\Polly.Test.csproj", "{03726A6B-1AEE-450A-9C5B-DE100CEB6642}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{D3770AB9-20A3-4F3F-B7BE-A180F8F29DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3770AB9-20A3-4F3F-B7BE-A180F8F29DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3770AB9-20A3-4F3F-B7BE-A180F8F29DF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03726A6B-1AEE-450A-9C5B-DE100CEB6642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03726A6B-1AEE-450A-9C5B-DE100CEB6642}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03726A6B-1AEE-450A-9C5B-DE100CEB6642}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03726A6B-1AEE-450A-9C5B-DE100CEB6642}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

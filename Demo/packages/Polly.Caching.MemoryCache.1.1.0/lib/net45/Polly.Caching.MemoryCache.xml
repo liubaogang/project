@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Polly.Caching.MemoryCache</name>
+    </assembly>
+    <members>
+        <member name="T:Polly.Caching.MemoryCache.MemoryCacheProvider">
+            <summary>
+            A cache provider for the Polly CachePolicy, using a passed-in instance of <see cref="T:System.Runtime.Caching.MemoryCache"/> as the store.
+            </summary>
+        </member>
+        <member name="M:Polly.Caching.MemoryCache.MemoryCacheProvider.#ctor(System.Runtime.Caching.MemoryCache)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Polly.Caching.MemoryCache.MemoryCacheProvider"/> class.
+            </summary>
+            <param name="memoryCache">The memory cache instance in which to store cached items.</param>
+        </member>
+        <member name="M:Polly.Caching.MemoryCache.MemoryCacheProvider.Get(System.String)">
+            <summary>
+            Gets a value from cache.
+            </summary>
+            <param name="key">The cache key.</param>
+            <returns>The value from cache; or null, if none was found.</returns>
+        </member>
+        <member name="M:Polly.Caching.MemoryCache.MemoryCacheProvider.Put(System.String,System.Object,Polly.Caching.Ttl)">
+            <summary>
+            Puts the specified value in the cache.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="value">The value to put into the cache.</param>
+            <param name="ttl">The time-to-live for the cache entry.</param>
+        </member>
+        <member name="M:Polly.Caching.MemoryCache.MemoryCacheProvider.GetAsync(System.String,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Gets a value from the memory cache as part of an asynchronous execution.  <para><remarks>The implementation is synchronous as there is no advantage to an asynchronous implementation for an in-memory cache.</remarks></para>
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="cancellationToken">The cancellation token.  </param>
+            <param name="continueOnCapturedContext">Whether async calls should continue on a captured synchronization context. <para><remarks>For <see cref="T:Polly.Caching.MemoryCache.MemoryCacheProvider"/>, this parameter is irrelevant and is ignored, as the implementation is synchronous.</remarks></para></param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> promising as Result the value from cache; or null, if none was found.</returns>
+        </member>
+        <member name="M:Polly.Caching.MemoryCache.MemoryCacheProvider.PutAsync(System.String,System.Object,Polly.Caching.Ttl,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Puts the specified value in the cache as part of an asynchronous execution.
+            <para><remarks>The implementation is synchronous as there is no advantage to an asynchronous implementation for an in-memory cache.</remarks></para>
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="value">The value to put into the cache.</param>
+            <param name="ttl">The time-to-live for the cache entry.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <param name="continueOnCapturedContext">Whether async calls should continue on a captured synchronization context. <para><remarks>For <see cref="T:Polly.Caching.MemoryCache.MemoryCacheProvider"/>, this parameter is irrelevant and is ignored, as the implementation is synchronous.</remarks></para></param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task" /> which completes when the value has been cached.</returns>
+        </member>
+    </members>
+</doc>
